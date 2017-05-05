@@ -19,11 +19,11 @@ function loaderFinished() {
     for (var i = 0; i < 8; i++) {
         tileArray[i]=[];
         for (var j = 0; j < 8; j++) {
-            tileArray[i][j]=new MapTile(i,j,64, 64, fieldTexture);
+            tileArray[i][j]=new MapTile(i,j,fieldTexture);
         }
     }
     
-    myMap = new Map(8,8,tileArray);
+    myMap = new Map(8,8,64,64,tileArray);
     stage.addChild(myMap.toPixiContainer());
     
     
