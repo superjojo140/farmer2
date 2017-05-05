@@ -1,2 +1,2 @@
 # farmer2
-A framing game version 2
+A farming game version 2
