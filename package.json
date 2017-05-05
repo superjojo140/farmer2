@@ -1,0 +1,19 @@
+{
+  "name": "farmer2",
+  "version": "1.0.0",
+  "description": "A pretty cool farming game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/superjojo140/farmer2.git"
+  },
+  "author": "superjojo140",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/superjojo140/farmer2/issues"
+  },
+  "homepage": "https://github.com/superjojo140/farmer2#readme"
+}
