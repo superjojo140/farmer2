@@ -1,3 +1,5 @@
 Bottom Tiles from https://opengameart.org/content/lpc-tile-atlas
 Some Plants from https://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements
 Character Sprites from: https://opengameart.org/content/rick
+
+I hope I've mentioned all necessary Authors, if not please write an Issue and I will update this.
