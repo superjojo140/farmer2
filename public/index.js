@@ -14,7 +14,7 @@ PIXI.loader.add("pics/field1.png").load(loaderFinished);
  */
 function loaderFinished() {
     var tileArray = [];
-    
+
     var fieldTexture = PIXI.loader.resources["pics/field1.png"].texture
     for (var i = 0; i < 8; i++) {
         tileArray[i]=[];
@@ -22,11 +22,11 @@ function loaderFinished() {
             tileArray[i][j]=new MapTile(i,j,fieldTexture);
         }
     }
-    
+
     myMap = new Map(8,8,64,64,tileArray);
     stage.addChild(myMap.toPixiContainer());
-    
-    
+
+
     renderer.render(stage);
 }
 
