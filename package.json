@@ -20,5 +20,6 @@
         "express": "latest"
         , "socket.io": "latest"
         , "pixi.js": "latest"
+        , "jsdoc": "latest"
     }
 }
