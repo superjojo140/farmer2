@@ -2,7 +2,8 @@ var express = require("express");
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
-app.use(express.static('public')); //Verzeichniss zur Verfügung stellen
+app.use(express.static('public')); //Verzeichniss für eigene Scripts zur Verfügung stellen
+app.use(express.static('node_modules')); //Verzeichniss für npm librarys zur Verfügung stellen
 var users = [];
 var connections = [];
 
