@@ -2,6 +2,7 @@
 var stage = new PIXI.Container();
 var renderer = PIXI.autoDetectRenderer(300, 300);
 var myMap;
+var socket = io();
 //
 //
 document.body.appendChild(renderer.view);
@@ -46,4 +47,9 @@ $(document).keydown(function(event){
 */
 function sendToServer(message){
     alert("Sende: "+JSON.stringify(message));
+    socket.emit("clientInput",JSON.stringify(message));
 }
+
+socket.on("serverInput", function (data) {
+        alert("Server sendet Input: "+data);
+    });

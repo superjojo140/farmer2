@@ -17,10 +17,10 @@ app.get("/", function (req, res) {
 });
 
 io.sockets.on("connection", function (socket) {
-    connections.push(socket);
-    console.log("New Client connected");
+    connections[socket.id]=socket;
+    console.log("New Client connected: "+socket.id);
 
-    var mysql = require('mysql');
+    /*var mysql = require('mysql');
 
     var connection = mysql.createConnection({
         host: 'localhost',
@@ -41,7 +41,7 @@ io.sockets.on("connection", function (socket) {
         }
     });
 
-    connection.end();
+    connection.end();*/
 
     //Disconnect
     socket.on("disconnect", function (data) {
@@ -49,19 +49,10 @@ io.sockets.on("connection", function (socket) {
         console.log("Client disconnected");
     });
 
-    socket.on("send message", function (data) {
-        io.sockets.emit("new message", {
-            msg: data
-        });
+    socket.on("clientInput", function (data) {
+        console.log("Client with id " + socket.id + " says: " + data);
+        io.sockets.emit("serverInput", data);
     });
 
-    socket.on("sendAnsw", function (data) {
-        console.log("Answ");
-        answers.push(data);
-        var toReturn = {
-            text: data,
-            color: colors[answers.length % colors.length]
-        };
-        io.sockets.emit("addAnsw", toReturn);
-    });
+
 });
