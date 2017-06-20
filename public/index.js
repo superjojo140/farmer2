@@ -31,14 +31,19 @@ function loaderFinished() {
 }
 
 
+/*Key Events*/
+$(document).keydown(function(event){
+   var message ={
+       type : "keyPress",
+       value: event.keyCode
+   }
+   sendToServer(message);
+});
+
 /**
- Bewegt das Objekt
+*Sendet ein Json Object an den Server
+*@param Object
 */
-/*
-function move() {
-    requestAnimationFrame(move);
-    floor.x -= 1;
-    floor.y -= 1;
-    renderer.render(stage);
+function sendToServer(message){
+    alert("Sende: "+JSON.stringify(message));
 }
-move();*/
