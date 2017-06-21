@@ -1,6 +1,6 @@
 //Global Variables
 var stage = new PIXI.Container();
-var renderer = PIXI.autoDetectRenderer(300, 300);
+var renderer = PIXI.autoDetectRenderer(1000, 700);
 var myMap;
 var socket = io();
 //
@@ -43,13 +43,16 @@ $(document).keydown(function(event){
 
 /**
 *Sendet ein Json Object an den Server
-*@param Object
+*@param message {Object} This object is parsed to a string and sent to the server
 */
 function sendToServer(message){
     alert("Sende: "+JSON.stringify(message));
     socket.emit("clientInput",JSON.stringify(message));
 }
 
+/**
+*Empfängt Daten vom Server und verarbeitet diese
+*/
 socket.on("serverInput", function (data) {
         alert("Server sendet Input: "+data);
-    });
+});
