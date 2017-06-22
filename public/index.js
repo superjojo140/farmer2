@@ -16,7 +16,7 @@ PIXI.loader.add("pics/field1.png").load(loaderFinished);
 function loaderFinished() {
     var tileArray = [];
 
-    var fieldTexture = PIXI.loader.resources["pics/field1.png"].texture
+    var fieldTexture = PIXI.loader.resources["pics/field1.png"].texture;
     for (var i = 0; i < 8; i++) {
         tileArray[i]=[];
         for (var j = 0; j < 8; j++) {

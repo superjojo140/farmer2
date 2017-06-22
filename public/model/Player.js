@@ -14,4 +14,4 @@ function Player(x, y) {
  */
 Player.prototype.move = function (direction) {
     alert(direction);
-}
+};
