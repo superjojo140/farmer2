@@ -54,5 +54,12 @@ io.sockets.on("connection", function (socket) {
         io.sockets.emit("serverInput", data);
     });
 
+    socket.on("clientRequestId", function (data) {
+        console.log("Client requests id: " + socket.id );
+        socket.emit("serverAssignId",JSON.stringify({id: socket.id}));
+
+    });
+
+
 
 });
