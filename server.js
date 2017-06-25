@@ -58,6 +58,13 @@ io.sockets.on("connection", function (socket) {
         console.log("Client requests id: " + socket.id );
         socket.emit("serverAssignId",JSON.stringify({id: socket.id}));
 
+        for (var i in connections){
+            if (i != socket.id){
+                //Notify all other Clients
+                connections[i].emit("serverNewPlayer",JSON.stringify({playerId : socket.id}));
+            }
+        }
+
     });
 
 

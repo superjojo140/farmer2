@@ -139,3 +139,10 @@ socket.on("serverAssignId", function (data) {
     gameLoop();
     gameState = PLAY;
 });
+
+/**
+*Fügt einen neuen Spieler hinzu
+*/
+socket.on("serverNewPlayer", function (data){
+    world.addPlayer(JSON.parse(data).playerId);
+});
