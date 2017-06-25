@@ -7,7 +7,8 @@ var socket = io();
 //
 document.body.appendChild(renderer.view);
 //Start Pixi loader
-PIXI.loader.add("pics/field1.png").load(loaderFinished);
+PIXI.loader.add(["pics/field1.png","pics/boy_down.png"]).load(loaderFinished);
+
 
 
 /**
@@ -24,11 +25,14 @@ function loaderFinished() {
         }
     }
 
-    myMap = new Map(8,8,64,64,tileArray);
+    myMap = new Map(8,8,64,64,tileArray,renderer);
     stage.addChild(myMap.toPixiContainer());
 
 
-    renderer.render(stage);
+    myMap.render();
+
+    var myPlayer = new Player(1,1,myMap);
+    myPlayer.render();
 }
 
 

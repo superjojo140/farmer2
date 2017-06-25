@@ -6,13 +6,15 @@
  * @param {number} tileHeight -Vertical pixels per unique Tile
  * @param {number} tileWidth - Horizontal pixels per unique tile
  * @param {Array.Array.MapTile} tiles - a two dimensional Array with all MapTiles
+ * @param {Renderer} renderer - The PIXI renderer
  */
-function Map(height, width, tileHeight, tileWidth, tiles) {
+function Map(height, width, tileHeight, tileWidth, tiles, renderer) {
     this.width = width;
     this.height = height;
     this.tileHeight = tileHeight;
-    this.thileWidth = tileWidth;
+    this.tileWidth = tileWidth;
     this.tiles = tiles;
+    this.renderer = renderer;
 }
 /**
  *Makes a Pixi Container out if a Map
@@ -24,10 +26,18 @@ Map.prototype.toPixiContainer = function () {
         for (var j = 0; j < this.width; j++) {
             var myTile = this.tiles[i][j];
             var mySprite = new PIXI.Sprite(myTile.texture);
-            mySprite.x = myTile.x * this.thileWidth;
+            mySprite.x = myTile.x * this.tileWidth;
             mySprite.y = myTile.y * this.tileHeight;
             con.addChild(mySprite);
         }
     }
     return con;
-}
+};
+
+/**
+*Renders the Map on screen
+*/
+Map.prototype.render = function(){
+    var container = this.toPixiContainer();
+    this.renderer.render(container);
+};
