@@ -94,16 +94,16 @@ socket.on("serverInput", function (data) {
         } else {
             switch (inputData.value) {
                 case 37:
-                    world.getPlayer(inputData.clientId).setVelocity(-1, 0);
+                    world.getPlayer(inputData.clientId).setVelocity(-PLAYER_SPEED, 0);
                     break;
                 case 38:
-                    world.getPlayer(inputData.clientId).setVelocity(0, -1);
+                    world.getPlayer(inputData.clientId).setVelocity(0, -PLAYER_SPEED);
                     break;
                 case 39:
-                    world.getPlayer(inputData.clientId).setVelocity(1, 0);
+                    world.getPlayer(inputData.clientId).setVelocity(PLAYER_SPEED, 0);
                     break;
                 case 40:
-                    world.getPlayer(inputData.clientId).setVelocity(0, 1);
+                    world.getPlayer(inputData.clientId).setVelocity(0, PLAYER_SPEED);
                     break;
 
                 default:
@@ -134,7 +134,6 @@ socket.on("serverAssignId", function (data) {
 
     //createOwnPlayer
     world.addPlayer(clientId);
-    world.getPlayer(clientId).setVelocity(1, 1);
 
     //Start the game loop
     gameLoop();
