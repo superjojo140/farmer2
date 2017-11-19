@@ -84,23 +84,24 @@ function sendToServer(message) {
 socket.on("serverInput", function (data) {
     console.log("Server sendet Input: " + data);
     var inputData = JSON.parse(data);
+    var targetPlayer = world.getPlayer(inputData.clientId);
 
     if (gameState == PLAY) {
         if (inputData.type == "keyUp") {
-            world.getPlayer(inputData.clientId).setVelocity(0, 0);
+            targetPlayer.setVelocity(0, 0);
         } else {
             switch (inputData.value) {
-                case 37:
-                    world.getPlayer(inputData.clientId).setVelocity(-PLAYER_SPEED, 0);
+                case 37://LEFT
+                   targetPlayer.goToPosition(targetPlayer.x-1,targetPlayer.y);
                     break;
-                case 38:
-                    world.getPlayer(inputData.clientId).setVelocity(0, -PLAYER_SPEED);
+                case 38://UP
+                   targetPlayer.goToPosition(targetPlayer.x,targetPlayer.y-1);
                     break;
-                case 39:
-                    world.getPlayer(inputData.clientId).setVelocity(PLAYER_SPEED, 0);
+                case 39://RIGHT
+                    targetPlayer.goToPosition(targetPlayer.x+1,targetPlayer.y);
                     break;
-                case 40:
-                    world.getPlayer(inputData.clientId).setVelocity(0, PLAYER_SPEED);
+                case 40://DOWN
+                    targetPlayer.goToPosition(targetPlayer.x,targetPlayer.y+1);
                     break;
 
                 default:

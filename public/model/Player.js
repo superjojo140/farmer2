@@ -5,30 +5,43 @@
 /**
  * Class representing a Player
  * @constructor
- * @param {number} x - The x Coordinate of the Player
- * @param {number} y - The y Coordinate of the Player
+ * @param {number} x - The x Coordinate of the Players Tile
+ * @param {number} y - The y Coordinate of the Players Tile
  * @param {String} imagePath - The imagePath of the Players texture
  * @param {world} world - The players world
  */
 function Player(x, y, imagePath, world) {
-     if (arguments.length != 4){
+    if (arguments.length != 4) {
         throw "Uncorrect number of arguments for creating a new Player";
     }
-    this.x = x;
-    this.y = y;
+    this.world = world;
     var texture = PIXI.loader.resources[imagePath].texture;
     this.sprite = new PIXI.Sprite(texture);
     this.vx = 0;
     this.vy = 0;
-    this.world = world;
+    this.setPosition(x, y);
 }
 
 /**
- *Let the Player move with it's Speed
+ *Let the Player move in direction to it's Position.
  */
 Player.prototype.move = function (direction) {
-    this.sprite.x += this.vx;
-    this.sprite.y += this.vy;
+    var tileWidth = this.world.map.tileWidth;
+    var tileHeight = this.world.map.tileHeight;
+    //Calculation PLAYER_SPEED to avoid flackering, if the could never reach exactly its Position because of the PLAYER_SPEED
+    if(this.x * tileWidth >= this.sprite.x + PLAYER_SPEED){
+        this.sprite.x+=PLAYER_SPEED;
+    }
+    else if(this.x * tileWidth <= this.sprite.x - PLAYER_SPEED){
+        this.sprite.x-=PLAYER_SPEED;
+    }
+    
+      if(this.y * tileHeight >= this.sprite.y + PLAYER_SPEED){
+        this.sprite.y+=PLAYER_SPEED;
+    }
+    else if(this.y * tileHeight <= this.sprite.y - PLAYER_SPEED){
+        this.sprite.y-=PLAYER_SPEED;
+    }
 };
 
 /**
@@ -37,4 +50,28 @@ Player.prototype.move = function (direction) {
 Player.prototype.setVelocity = function (vx, vy) {
     this.vx = vx;
     this.vy = vy;
+};
+
+/**
+ *Set the Position of the Player
+ * @param {number} x - The x Coordinate of the Players Tile
+ * @param {number} y - The y Coordinate of the Players Tile
+ */
+Player.prototype.setPosition = function (x, y) {
+    this.x = x;
+    this.y = y;
+    var tileWidth = this.world.map.tileWidth;
+    var tileHeight = this.world.map.tileHeight;
+    this.sprite.x = x * tileWidth;
+    this.sprite.y = y * tileHeight;
+};
+
+/**
+ *Set the Position of the Player and Animates a Transition
+ * @param {number} x - The x Coordinate of the Players Tile
+ * @param {number} y - The y Coordinate of the Players Tile
+ */
+Player.prototype.goToPosition = function (x, y) {
+    this.x = x;
+    this.y = y;
 };

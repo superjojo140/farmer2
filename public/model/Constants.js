@@ -11,4 +11,4 @@ const LOAD = 0;
 const PLAY = 1;
 
 //Config
-const PLAYER_SPEED = 3;
+const PLAYER_SPEED = 4;

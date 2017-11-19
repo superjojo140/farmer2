@@ -28,7 +28,7 @@ function World(clientId,container,mapName) {
 * @param {String} id - The new Player's id
 */
 World.prototype.addPlayer = function(id){
-    var player = new Player(0,0,"pics/boy_down.png",this);
+    var player = new Player(3,4,"pics/boy_down.png",this);
     this.players[id]=player;
     this.playerContainer.addChild(player.sprite);
 }
