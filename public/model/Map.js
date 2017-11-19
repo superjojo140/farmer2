@@ -1,3 +1,6 @@
+"use strict";
+
+
 /**
  * Class representing a Map
  * @constructor

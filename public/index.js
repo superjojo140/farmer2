@@ -1,3 +1,6 @@
+"use strict";
+
+
 //Global Variables
 var stage = new PIXI.Container();
 var renderer = PIXI.autoDetectRenderer(640, 640);
@@ -16,13 +19,7 @@ PIXI.loader.add(["pics/boy_down.png", "pics/arena.jpg","pics/field1.png", "data/
  * Wird aufgerufen, sobald Pixi alle Elemente geladen hat
  */
 function loaderFinished() {
-    //Show Background
-    var bgContainer = new PIXI.Container();
-    var bgSprite = new PIXI.Sprite(PIXI.loader.resources["pics/arena.jpg"].texture);
-    bgContainer.addChild(bgSprite);
-    stage.addChild(bgContainer);
-
-    renderer.render(stage);
+     renderer.render(stage);
 
     //Request an id from server
     socket.emit("clientRequestId", "");

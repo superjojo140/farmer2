@@ -1,7 +1,11 @@
+"use strict";
+
+
 /**
  * Class representing a World
  * The World cares about managing the Players...
  * @constructor
+ * @param {String} clientId - The socket.io Client Id
  * @param {Object} container - The Container to add all the GameObjects
  * @param {Object} mapName - The map, where the players interact
  */
@@ -21,7 +25,7 @@ function World(clientId,container,mapName) {
 * @param {String} id - The new Player's id
 */
 World.prototype.addPlayer = function(id){
-    var player = new Player(0,0,"pics/boy_down.png");
+    var player = new Player(0,0,"pics/boy_down.png",this);
     this.players[id]=player;
     this.playerContainer.addChild(player.sprite);
 }
@@ -52,7 +56,7 @@ World.prototype.loadMap = function(mapName){
     if (mapFile == undefined){
         console.log("Can't load Map File "+mapName);
     }
-    mapData = mapFile.data;
+    var mapData = mapFile.data;
 
     
     var tiles = [];
@@ -61,12 +65,12 @@ World.prototype.loadMap = function(mapName){
     for (var i = 0; i < mapData.height; i++) {
         tiles[i]= [];
         for (var j = 0; j < mapData.width; j++) {
-            tiles[i][j] = new MapTile(i,j,mapData.textures[mapData.tiles[i][j]],mapData.tiles[i][j]); //TODO Make acre dynamic
+            tiles[i][j] = new MapTile(i,j,mapData.textures[mapData.tiles[i][j]],mapData.tiles[i][j],this); //TODO Make acre dynamic
         }
     }
     
     //Parse JSON File
-    var newMap = new Map(mapData.height,mapData.width,mapData.tileHeight,mapData.tileWidth,tiles);
+    var newMap = new Map(mapData.height,mapData.width,mapData.tileHeight,mapData.tileWidth,tiles,this);
     return newMap;
     
 }
