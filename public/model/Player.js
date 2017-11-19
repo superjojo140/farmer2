@@ -1,16 +1,23 @@
+
+
+
+
 /**
  * Class representing a Player
  * @constructor
  * @param {number} x - The x Coordinate of the Player
  * @param {number} y - The y Coordinate of the Player
+ * @param {String} imagePath - The imagePath of the Players texture
+ * @param {world} world - The players world
  */
-function Player(x, y, imagePath) {
+function Player(x, y, imagePath, world) {
     this.x = x;
     this.y = y;
     var texture = PIXI.loader.resources[imagePath].texture;
     this.sprite = new PIXI.Sprite(texture);
     this.vx = 0;
     this.vy = 0;
+    this.world = world;
 }
 
 /**
@@ -22,9 +29,9 @@ Player.prototype.move = function (direction) {
 };
 
 /**
-*Set the Velocity of the Player
-*/
-Player.prototype.setVelocity = function(vx,vy){
+ *Set the Velocity of the Player
+ */
+Player.prototype.setVelocity = function (vx, vy) {
     this.vx = vx;
     this.vy = vy;
 };

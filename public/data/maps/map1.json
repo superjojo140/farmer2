@@ -1,0 +1,13 @@
+{
+    "name": "map1",
+    "author": "superjojo140",
+    "width": 8,
+    "height": 8,
+    "tileWidth": 64,
+    "tileHeight": 64,
+    "tiles": [["acre", "acre", "acre", "acre", "acre", "acre", "acre", "acre"], ["acre", "acre", "acre", "acre", "acre", "acre", "acre", "acre"], ["acre", "acre", "acre", "acre", "acre", "acre", "acre", "acre"], ["acre", "acre", "acre", "acre", "acre", "acre", "acre", "acre"], ["acre", "acre", "acre", "acre", "acre", "acre", "acre", "acre"], ["acre", "acre", "acre", "acre", "acre", "acre", "acre", "acre"], ["acre", "acre", "acre", "acre", "acre", "acre", "acre", "acre"], ["acre", "acre", "acre", "acre", "acre", "acre", "acre", "acre"]],
+    "textures": {
+        "acre": "field1.png"
+    }
+
+}

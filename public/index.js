@@ -8,7 +8,7 @@ var gameState = LOAD;
 //
 document.body.appendChild(renderer.view);
 //Start Pixi loader
-PIXI.loader.add(["pics/boy_down.png", "pics/arena.jpg"]).load(loaderFinished);
+PIXI.loader.add(["pics/boy_down.png", "pics/arena.jpg","pics/field1.png", "data/maps/map1.json"]).load(loaderFinished);
 
 
 
@@ -128,9 +128,9 @@ socket.on("serverAssignId", function (data) {
 
 
     //Create World
-    var playerContainer = new PIXI.Container();
-    stage.addChild(playerContainer);
-    world = new World(clientId, playerContainer);
+    var worldContainer = new PIXI.Container();
+    stage.addChild(worldContainer);
+    world = new World(clientId, worldContainer,"map1");
 
     //createOwnPlayer
     world.addPlayer(clientId);
@@ -138,6 +138,8 @@ socket.on("serverAssignId", function (data) {
     //Start the game loop
     gameLoop();
     gameState = PLAY;
+    
+    
 });
 
 /**
