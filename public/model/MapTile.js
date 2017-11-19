@@ -11,6 +11,9 @@
  * @param {Map} map - The tiles map
  */
 function MapTile(y, x, texture, type, world) {
+     if (arguments.length != 5){
+        throw "Uncorrect number of arguments for creating a new World";
+    }
     this.y = y;
     this.x = x;
     this.texture = texture;

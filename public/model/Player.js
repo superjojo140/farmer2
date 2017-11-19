@@ -11,6 +11,9 @@
  * @param {world} world - The players world
  */
 function Player(x, y, imagePath, world) {
+     if (arguments.length != 4){
+        throw "Uncorrect number of arguments for creating a new Player";
+    }
     this.x = x;
     this.y = y;
     var texture = PIXI.loader.resources[imagePath].texture;

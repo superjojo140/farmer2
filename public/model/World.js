@@ -10,6 +10,9 @@
  * @param {Object} mapName - The map, where the players interact
  */
 function World(clientId,container,mapName) {
+    if (arguments.length != 3){
+        throw "Uncorrect number of arguments for creating a new World";
+    }
     this.container = container;
     this.players = [];
     this.clientId = clientId;

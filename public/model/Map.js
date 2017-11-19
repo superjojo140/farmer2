@@ -12,6 +12,9 @@
  * @param {World} world - The maps world
  */
 function Map(height, width, tileHeight, tileWidth, tiles, world) {
+     if (arguments.length != 6){
+        throw "Uncorrect number of arguments for creating a new Map";
+    }
     this.width = width;
     this.height = height;
     this.tileHeight = tileHeight;
