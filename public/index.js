@@ -122,6 +122,8 @@ socket.on("serverInput", function (data) {
  */
 socket.on("serverAssignId", function (data) {
     var clientId = JSON.parse(data).id;
+    var worldFromServer = JSON.parse(data).world;
+    console.log(worldFromServer);
     console.log("Server sendet id: " + clientId);
 
 
