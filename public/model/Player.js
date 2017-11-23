@@ -7,15 +7,14 @@
  * @constructor
  * @param {number} x - The x Coordinate of the Players Tile
  * @param {number} y - The y Coordinate of the Players Tile
- * @param {String} imagePath - The imagePath of the Players texture
- * @param {world} world - The players world
+ * @param {World} world - The world
  */
-function Player(x, y, imagePath, world) {
-    if (arguments.length != 4) {
+function Player(x, y,world) {
+    if (arguments.length != 3) {
         throw "Uncorrect number of arguments for creating a new Player";
     }
     this.world = world;
-    var texture = PIXI.loader.resources[imagePath].texture;
+    var texture = PIXI.loader.resources["pics/boy_down.png"].texture;
     this.sprite = new PIXI.Sprite(texture);
     this.vx = 0;
     this.vy = 0;

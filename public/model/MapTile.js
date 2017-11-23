@@ -6,17 +6,14 @@
  * @constructor
  * @param {number} y - Vertical Index of this Tile in the whole Map
  * @param {number} x - Horizontal Index of this Tile in the whole Map
- * @param {String} texture - The path to the texture of this tile.
- * @param {string} type - The tiles type
- * @param {Map} map - The tiles map
+ * @param {String} type - The type of this tile.
  */
-function MapTile(y, x, texture, type, world) {
-     if (arguments.length != 5){
+function MapTile(y, x,type) {
+     if (arguments.length != 3){
         throw "Uncorrect number of arguments for creating a new World";
     }
     this.y = y;
     this.x = x;
-    this.texture = texture;
+    this.texture = mapTileTextures[type];
     this.type = type;
-    this.world = world;
 }

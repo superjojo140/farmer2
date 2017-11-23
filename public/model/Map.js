@@ -9,18 +9,19 @@
  * @param {number} tileHeight -Vertical pixels per unique Tile
  * @param {number} tileWidth - Horizontal pixels per unique tile
  * @param {Array.Array.MapTile} tiles - a two dimensional Array with all MapTiles
- * @param {World} world - The maps world
  */
-function Map(height, width, tileHeight, tileWidth, tiles, world) {
-     if (arguments.length != 6){
+function Map(height, width, tileHeight, tileWidth, tiles) {
+     if (arguments.length != 5){
         throw "Uncorrect number of arguments for creating a new Map";
+    }
+    if (tiles.length != height || tiles[0].length != width){
+        throw "Height or width parameter doesn't fit to tiles array";
     }
     this.width = width;
     this.height = height;
     this.tileHeight = tileHeight;
     this.tileWidth = tileWidth;
     this.tiles = tiles;
-    this.world = world;
 }
 /**
  *Makes a Pixi Container out of a Map

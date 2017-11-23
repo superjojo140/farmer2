@@ -68,12 +68,12 @@ io.sockets.on("connection", function (socket) {
             world : currentWorld
         }));
         for (var i in connections) {
-            if (i != socket.id) {
-                //Notify all other Clients
+
+                //Notify all Clients
                 connections[i].emit("serverNewPlayer", JSON.stringify({
                     playerId: socket.id
                 }));
-            }
+
         }
     });
     

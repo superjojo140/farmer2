@@ -14,6 +14,9 @@ function SMap(height, width, tileHeight, tileWidth, tiles) {
      if (arguments.length != 5){
         throw "Uncorrect number of arguments for creating a new Map";
     }
+     if (tiles.length != height || tiles[0].length != width){
+        throw "Height or width parameter doesn't fit to tiles array";
+    }
     this.width = width;
     this.height = height;
     this.tileHeight = tileHeight;
