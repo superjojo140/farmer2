@@ -5,15 +5,15 @@
 /**
  * Class representing a Player
  * @constructor
+ * @param {number} id - The id of the Players Tile
  * @param {number} x - The x Coordinate of the Players Tile
  * @param {number} y - The y Coordinate of the Players Tile
- * @param {world} world - The players world
  */
-function SPlayer(x, y, world) {
+function SPlayer(id,x, y) {
     if (arguments.length != 3) {
         throw "Uncorrect number of arguments for creating a new Player";
     }
-    this.world = world;
+    this.id = id;
     this.vx = 0;
     this.vy = 0;
     this.setPosition(x, y);

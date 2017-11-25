@@ -27,28 +27,7 @@ app.get("/", function (req, res) {
 io.sockets.on("connection", function (socket) {
     connections[socket.id] = socket;
     console.log("New Client connected: " + socket.id);
-    /*var mysql = require('mysql');
-
-    var connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'user',
-        password: 'pwd',
-        database: 'farmer',
-    });
-
-    connection.connect();
-
-    var queryString = 'SELECT * FROM fragen LIMIT 1';
-
-    connection.query(queryString, function (err, rows, fields) {
-        if (err) throw err;
-
-        for (var i in rows) {
-            console.log('Post Titles: ', rows[i].frage);
-        }
-    });
-
-    connection.end();*/
+    
     //Disconnect
     socket.on("disconnect", function (data) {
         connections.splice(connections.indexOf(socket), 1);
@@ -67,11 +46,16 @@ io.sockets.on("connection", function (socket) {
             id: socket.id,
             world : currentWorld
         }));
+        
+        //Add new clients Player
+        currentWorld.addPlayer(socket.id,0,0);
         for (var i in connections) {
 
                 //Notify all Clients
                 connections[i].emit("serverNewPlayer", JSON.stringify({
-                    playerId: socket.id
+                    playerId: socket.id,
+                    x:0,
+                    y:0
                 }));
 
         }

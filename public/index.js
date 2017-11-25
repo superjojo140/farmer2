@@ -94,8 +94,9 @@ socket.on("serverInput", function (data) {
  */
 socket.on("serverAssignId", function (data) {
     var clientId = JSON.parse(data).id;
-    console.log("Server sendet id: " + clientId);
+   
     var worldFromServer = JSON.parse(data).world;
+    console.log(worldFromServer);
     world = loadWorldFromServer(worldFromServer, clientId);
     loadPlayersFromServer(worldFromServer.players);
     //Start the game loop
@@ -109,7 +110,7 @@ function loadWorldFromServer(worldFromServer, clientId) {
     //Create World
     var worldContainer = new PIXI.Container();
     stage.addChild(worldContainer);
-    return new World(clientId, worldContainer, myMap, []);
+    return new World(clientId, worldContainer, myMap, {});
 }
 
 function loadMapFromServer(mapFromServer) {
@@ -143,6 +144,6 @@ function loadPlayersFromServer(playersFromServer) {
  *Fügt einen neuen Spieler hinzu
  */
 socket.on("serverNewPlayer", function (data) {
-    //TODO make players position dynamic
-    world.addPlayer(JSON.parse(data).playerId,0,0);
+    data=JSON.parse(data);
+    world.addPlayer(data.playerId,data.x,data.y);
 });

@@ -24,8 +24,9 @@ function SWorld(mapName) {
  * @param {Number} y - The new Player's y coordinate
  */
 SWorld.prototype.addPlayer = function (id, x, y) {
-        var player = new SPlayer(x, y, this);
-        this.players[id] = player;
+        var player = new SPlayer(id,x,y);
+        this.players.push(player);
+        console.log("added Player:" + this.players.length);
     }
     /**
      *Returns teh Player with the specified id
