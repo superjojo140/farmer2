@@ -1,4 +1,5 @@
 "use strict";
+import { MapTile } from "./MapTile";
 
 
 /**
@@ -10,34 +11,38 @@
  * @param {number} tileWidth - Horizontal pixels per unique tile
  * @param {Array.Array.MapTile} tiles - a two dimensional Array with all MapTiles
  */
-function Map(height, width, tileHeight, tileWidth, tiles) {
-     if (arguments.length != 5){
-        throw "Uncorrect number of arguments for creating a new Map";
-    }
-    if (tiles.length != height || tiles[0].length != width){
-        throw "Height or width parameter doesn't fit to tiles array";
-    }
-    this.width = width;
-    this.height = height;
-    this.tileHeight = tileHeight;
-    this.tileWidth = tileWidth;
-    this.tiles = tiles;
-}
-/**
- *Makes a Pixi Container out of a Map
- *@return {Container} The generated Pixi Container
- */
-Map.prototype.toPixiContainer = function () {
-    var con = new PIXI.Container();
-    for (var i = 0; i < this.height; i++) {
-        for (var j = 0; j < this.width; j++) {
-            var myTile = this.tiles[i][j];
-            var mySprite = new PIXI.Sprite(PIXI.loader.resources["pics/"+myTile.texture].texture);
-            mySprite.x = myTile.x * this.tileWidth;
-            mySprite.y = myTile.y * this.tileHeight;
-            con.addChild(mySprite);
-        }
-    }
-    return con;
-};
+export class Map {
+    width: number;
+    height: number;
+    tileWidth: number;
+    tileHeight: number;
+    tiles: MapTile[][];
 
+    constructor(height: number, width: number, tileHeight: number, tileWidth: number, tiles: MapTile[][]) {
+        if (tiles.length != height || tiles[0].length != width) {
+            throw "Height or width parameter doesn't fit to tiles array";
+        }
+        this.width = width;
+        this.height = height;
+        this.tileHeight = tileHeight;
+        this.tileWidth = tileWidth;
+        this.tiles = tiles;
+    }
+    /**
+     *Makes a Pixi Container out of a Map
+     *@return {Container} The generated Pixi Container
+     */
+    toPixiContainer():PIXI.Container{
+        var con:PIXI.Container = new PIXI.Container();
+        for (var i:number = 0; i < this.height; i++) {
+            for (var j:number = 0; j < this.width; j++) {
+                var myTile:MapTile = this.tiles[i][j];
+                var mySprite:PIXI.Sprite = new PIXI.Sprite(PIXI.loader.resources["pics/" + myTile.texture].texture);
+                mySprite.x = myTile.x * this.tileWidth;
+                mySprite.y = myTile.y * this.tileHeight;
+                con.addChild(mySprite);
+            }
+        }
+        return con;
+    }
+}

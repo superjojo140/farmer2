@@ -1,14 +1,14 @@
 "use strict";
-const UP = 0;
-const RIGHT = 1;
-const DOWN = 2;
-const LEFT = 3;
+var UP:number = 0;
+var RIGHT:number = 1;
+var DOWN:number = 2;
+var LEFT:number = 3;
 //GameStates
-const LOAD = 0;
-const PLAY = 1;
+var LOAD:number = 0;
+var PLAY:number = 1;
 //Config
-const PLAYER_SPEED = 4;
+var PLAYER_SPEED:number = 4;
 //MapTile Texture Path
-var mapTileTextures = {
-    acre: "field1.png"
-}
+var mapTileTextures:{[index:string]:string} = {
+    "acre": "field1.png"
+};

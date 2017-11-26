@@ -10,5 +10,5 @@ var PLAY = 1;
 var PLAYER_SPEED = 4;
 //MapTile Texture Path
 var mapTileTextures = {
-    acre: "field1.png"
+    "acre": "field1.png"
 };

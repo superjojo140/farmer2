@@ -8,12 +8,16 @@
  * @param {number} x - Horizontal Index of this Tile in the whole Map
  * @param {String} type - The type of this tile.
  */
-function MapTile(y, x,type) {
-     if (arguments.length != 3){
-        throw "Uncorrect number of arguments for creating a new World";
-    }
-    this.y = y;
-    this.x = x;
-    this.texture = mapTileTextures[type];
-    this.type = type;
+export class MapTile{
+  x:number;
+  y:number;
+  type:string;
+  texture:string;
+  constructor(y:number, x:number,type:string) {
+      this.y = y;
+      this.x = x;
+      this.texture = mapTileTextures[type];
+      this.type = type;
+  }
+
 }

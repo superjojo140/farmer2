@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Class representing a MapTile
  * @constructor
@@ -6,12 +7,13 @@
  * @param {number} x - Horizontal Index of this Tile in the whole Map
  * @param {String} type - The type of this tile.
  */
-function MapTile(y, x, type) {
-    if (arguments.length != 3) {
-        throw "Uncorrect number of arguments for creating a new World";
+var MapTile = (function () {
+    function MapTile(y, x, type) {
+        this.y = y;
+        this.x = x;
+        this.texture = mapTileTextures[type];
+        this.type = type;
     }
-    this.y = y;
-    this.x = x;
-    this.texture = mapTileTextures[type];
-    this.type = type;
-}
+    return MapTile;
+}());
+exports.MapTile = MapTile;
