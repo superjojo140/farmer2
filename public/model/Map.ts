@@ -1,4 +1,6 @@
 "use strict";
+
+
 /**
  * Class representing a Map
  * @constructor
@@ -9,10 +11,10 @@
  * @param {Array.Array.MapTile} tiles - a two dimensional Array with all MapTiles
  */
 function Map(height, width, tileHeight, tileWidth, tiles) {
-    if (arguments.length != 5) {
+     if (arguments.length != 5){
         throw "Uncorrect number of arguments for creating a new Map";
     }
-    if (tiles.length != height || tiles[0].length != width) {
+    if (tiles.length != height || tiles[0].length != width){
         throw "Height or width parameter doesn't fit to tiles array";
     }
     this.width = width;
@@ -30,7 +32,7 @@ Map.prototype.toPixiContainer = function () {
     for (var i = 0; i < this.height; i++) {
         for (var j = 0; j < this.width; j++) {
             var myTile = this.tiles[i][j];
-            var mySprite = new PIXI.Sprite(PIXI.loader.resources["pics/" + myTile.texture].texture);
+            var mySprite = new PIXI.Sprite(PIXI.loader.resources["pics/"+myTile.texture].texture);
             mySprite.x = myTile.x * this.tileWidth;
             mySprite.y = myTile.y * this.tileHeight;
             con.addChild(mySprite);
@@ -38,3 +40,4 @@ Map.prototype.toPixiContainer = function () {
     }
     return con;
 };
+

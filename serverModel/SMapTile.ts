@@ -1,5 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+
 /**
  * Class representing a MapTile
  * @constructor
@@ -7,12 +8,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {number} x - Horizontal Index of this Tile in the whole Map
  * @param {string} type - The tiles type
  */
-var SMapTile = (function () {
-    function SMapTile(y, x, type) {
+export class SMapTile {
+    x: number;
+    y: number;
+    type: string;
+
+    constructor(y: number, x: number, type: string) {
         this.y = y;
         this.x = x;
         this.type = type;
     }
-    return SMapTile;
-}());
-exports.SMapTile = SMapTile;
+}

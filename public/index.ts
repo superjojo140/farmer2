@@ -33,20 +33,20 @@ $(document).keydown(function (event) {
     // TODO fix that the key is only triggered once https://stackoverflow.com/questions/19666440/jquery-keyboard-event-handler-press-and-hold
     if (gameState == PLAY) {
         var message = {
-            type: "keyDown",
-            value: event.keyCode,
-            clientId: world.clientId
-        };
+            type: "keyDown"
+            , value: event.keyCode
+            , clientId: world.clientId
+        }
         sendToServer(message);
     }
 });
 $(document).keyup(function (event) {
     if (gameState == PLAY) {
         var message = {
-            type: "keyUp",
-            value: event.keyCode,
-            clientId: world.clientId
-        };
+            type: "keyUp"
+            , value: event.keyCode
+            , clientId: world.clientId
+        }
         sendToServer(message);
     }
 });
@@ -70,21 +70,21 @@ socket.on("serverInput", function (data) {
         }
         else {
             switch (inputData.value) {
-                case 37://LEFT
-                    targetPlayer.goToPosition(targetPlayer.x - 1, targetPlayer.y);
-                    break;
-                case 38://UP
-                    targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y - 1);
-                    break;
-                case 39://RIGHT
-                    targetPlayer.goToPosition(targetPlayer.x + 1, targetPlayer.y);
-                    break;
-                case 40://DOWN
-                    targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y + 1);
-                    break;
-                default:
-                    console.log("unknown key input from server");
-                    break;
+            case 37: //LEFT
+                targetPlayer.goToPosition(targetPlayer.x - 1, targetPlayer.y);
+                break;
+            case 38: //UP
+                targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y - 1);
+                break;
+            case 39: //RIGHT
+                targetPlayer.goToPosition(targetPlayer.x + 1, targetPlayer.y);
+                break;
+            case 40: //DOWN
+                targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y + 1);
+                break;
+            default:
+                console.log("unknown key input from server");
+                break;
             }
         }
     }
@@ -94,6 +94,7 @@ socket.on("serverInput", function (data) {
  */
 socket.on("serverAssignId", function (data) {
     var clientId = JSON.parse(data).id;
+   
     var worldFromServer = JSON.parse(data).world;
     console.log(worldFromServer);
     world = loadWorldFromServer(worldFromServer, clientId);
@@ -102,6 +103,7 @@ socket.on("serverAssignId", function (data) {
     gameLoop();
     gameState = PLAY;
 });
+
 function loadWorldFromServer(worldFromServer, clientId) {
     var mapFromServer = worldFromServer.map;
     var myMap = loadMapFromServer(mapFromServer);
@@ -110,11 +112,14 @@ function loadWorldFromServer(worldFromServer, clientId) {
     stage.addChild(worldContainer);
     return new World(clientId, worldContainer, myMap, {});
 }
+
 function loadMapFromServer(mapFromServer) {
     var tilesFromServer = mapFromServer.tiles;
     var myTiles = loadTilesFromServer(tilesFromServer);
     return new Map(mapFromServer.height, mapFromServer.width, mapFromServer.tileHeight, mapFromServer.tileWidth, myTiles);
 }
+
+
 function loadTilesFromServer(tilesFromServer) {
     //TODo Create Tiles
     var newTiles = [];
@@ -126,16 +131,19 @@ function loadTilesFromServer(tilesFromServer) {
     }
     return newTiles;
 }
+
 function loadPlayersFromServer(playersFromServer) {
+    
     for (var i in playersFromServer) {
         tempPlayer = playersFromServer[i];
-        world.addPlayer(i, tempPlayer.x, tempPlayer.y);
+        world.addPlayer(i,tempPlayer.x,tempPlayer.y);
     }
+    
 }
 /**
  *Fügt einen neuen Spieler hinzu
  */
 socket.on("serverNewPlayer", function (data) {
-    data = JSON.parse(data);
-    world.addPlayer(data.playerId, data.x, data.y);
+    data=JSON.parse(data);
+    world.addPlayer(data.playerId,data.x,data.y);
 });
