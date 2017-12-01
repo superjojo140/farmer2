@@ -24,7 +24,9 @@
     "socket.io": "latest",
     "pixi.js": "latest",
     "jsdoc": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "webpack": "latest",
+    "ts-loader":"latest"
   },
   "devDependencies": {
     "@types/node": "^8.0.53",

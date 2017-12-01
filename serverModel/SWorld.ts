@@ -42,7 +42,7 @@ export class SWorld {
      */
 
     loadMap(mapName: string):SMap {
-        var mapData:any = JSON.parse(require('fs').readFileSync('public/data/maps/' + mapName + '.json', 'utf8'));
+        var mapData:any = JSON.parse(require('fs').readFileSync('client/data/maps/' + mapName + '.json', 'utf8'));
         if (mapData == undefined) {
             console.log("Can't load Map File " + mapName);
         }

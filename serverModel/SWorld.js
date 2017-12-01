@@ -36,7 +36,7 @@ var SWorld = /** @class */ (function () {
      *moves the players etc...
      */
     SWorld.prototype.loadMap = function (mapName) {
-        var mapData = JSON.parse(require('fs').readFileSync('public/data/maps/' + mapName + '.json', 'utf8'));
+        var mapData = JSON.parse(require('fs').readFileSync('client/data/maps/' + mapName + '.json', 'utf8'));
         if (mapData == undefined) {
             console.log("Can't load Map File " + mapName);
         }
