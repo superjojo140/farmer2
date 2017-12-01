@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Constants_1 = require("./Constants");
 /**
  * Class representing a Player
  * @constructor
@@ -8,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {number} y - The y Coordinate of the Players Tile
  * @param {World} world - The world
  */
-var Player = (function () {
+var Player = /** @class */ (function () {
     function Player(id, x, y, world) {
         this.id = id;
         this.world = world;
@@ -23,17 +24,17 @@ var Player = (function () {
         var tileWidth = this.world.map.tileWidth;
         var tileHeight = this.world.map.tileHeight;
         //Calculation PLAYER_SPEED to avoid flackering, if the could never reach exactly its Position because of the PLAYER_SPEED
-        if (this.x * tileWidth >= this.sprite.x + PLAYER_SPEED) {
-            this.sprite.x += PLAYER_SPEED;
+        if (this.x * tileWidth >= this.sprite.x + Constants_1.Constants.PLAYER_SPEED) {
+            this.sprite.x += Constants_1.Constants.PLAYER_SPEED;
         }
-        else if (this.x * tileWidth <= this.sprite.x - PLAYER_SPEED) {
-            this.sprite.x -= PLAYER_SPEED;
+        else if (this.x * tileWidth <= this.sprite.x - Constants_1.Constants.PLAYER_SPEED) {
+            this.sprite.x -= Constants_1.Constants.PLAYER_SPEED;
         }
-        if (this.y * tileHeight >= this.sprite.y + PLAYER_SPEED) {
-            this.sprite.y += PLAYER_SPEED;
+        if (this.y * tileHeight >= this.sprite.y + Constants_1.Constants.PLAYER_SPEED) {
+            this.sprite.y += Constants_1.Constants.PLAYER_SPEED;
         }
-        else if (this.y * tileHeight <= this.sprite.y - PLAYER_SPEED) {
-            this.sprite.y -= PLAYER_SPEED;
+        else if (this.y * tileHeight <= this.sprite.y - Constants_1.Constants.PLAYER_SPEED) {
+            this.sprite.y -= Constants_1.Constants.PLAYER_SPEED;
         }
     };
     ;

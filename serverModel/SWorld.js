@@ -9,7 +9,7 @@ var SMap_1 = require("./SMap");
  * @constructor
  * @param {Object} mapName - The map, where the players interact
  */
-var SWorld = (function () {
+var SWorld = /** @class */ (function () {
     function SWorld(mapName) {
         this.players = {};
         this.map = this.loadMap(mapName);

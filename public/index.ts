@@ -1,10 +1,20 @@
 "use strict";
+
+
+import { MapTile } from "./model/MapTile";
+import { Map } from "./model/Map";
+import { Player } from "./model/Player";
+import { World } from "./model/World";
+import {Constants} from "./model/Constants"
+
+
+
 //Global Variables
-var stage = new PIXI.Container();
+var stage: PIXI.Container = new PIXI.Container();
 var renderer = PIXI.autoDetectRenderer(640, 640);
 var socket = io();
-var world;
-var gameState = LOAD;
+var world: World;
+var gameState: number = Constants.LOAD;
 //
 //
 document.body.appendChild(renderer.view);
@@ -13,137 +23,134 @@ PIXI.loader.add(["pics/boy_down.png", "pics/arena.jpg", "pics/field1.png", "data
 /**
  * Wird aufgerufen, sobald Pixi alle Elemente geladen hat
  */
-function loaderFinished() {
-    renderer.render(stage);
-    //Request an id from server
-    socket.emit("clientRequestId", "");
+function loaderFinished(): void {
+  renderer.render(stage);
+  //Request an id from server
+  socket.emit("clientRequestId", "");
 }
 /**
  *GameLoop
  */
-function gameLoop() {
-    //Loop this function at 60 frames per second
-    requestAnimationFrame(gameLoop);
-    world.doStep();
-    //Render the stage to see the animation
-    renderer.render(stage);
+function gameLoop(): void {
+  //Loop this function at 60 frames per second
+  requestAnimationFrame(gameLoop);
+  world.doStep();
+  //Render the stage to see the animation
+  renderer.render(stage);
 }
 /*Key Events*/
-$(document).keydown(function (event) {
-    // TODO fix that the key is only triggered once https://stackoverflow.com/questions/19666440/jquery-keyboard-event-handler-press-and-hold
-    if (gameState == PLAY) {
-        var message = {
-            type: "keyDown"
-            , value: event.keyCode
-            , clientId: world.clientId
-        }
-        sendToServer(message);
+$(document).keydown(function(event) {
+  // TODO fix that the key is only triggered once https://stackoverflow.com/questions/19666440/jquery-keyboard-event-handler-press-and-hold
+  if (gameState == Constants.PLAY) {
+    var message = {
+      type: "keyDown"
+      , value: event.keyCode
+      , clientId: world.clientId
     }
+    sendToServer(message);
+  }
 });
-$(document).keyup(function (event) {
-    if (gameState == PLAY) {
-        var message = {
-            type: "keyUp"
-            , value: event.keyCode
-            , clientId: world.clientId
-        }
-        sendToServer(message);
+$(document).keyup(function(event) {
+  if (gameState == Constants.PLAY) {
+    var message = {
+      type: "keyUp"
+      , value: event.keyCode
+      , clientId: world.clientId
     }
+    sendToServer(message);
+  }
 });
 /**
  *Sendet ein Json Object an den Server
  *@param message {Object} This object is parsed to a string and sent to the server
  */
-function sendToServer(message) {
-    socket.emit("clientInput", JSON.stringify(message));
+function sendToServer(message: any): void {
+  socket.emit("clientInput", JSON.stringify(message));
 }
 /**
  *Empfängt Daten vom Server und verarbeitet diese
  */
-socket.on("serverInput", function (data) {
-    console.log("Server sendet Input: " + data);
-    var inputData = JSON.parse(data);
-    var targetPlayer = world.getPlayer(inputData.clientId);
-    if (gameState == PLAY) {
-        if (inputData.type == "keyUp") {
-            targetPlayer.setVelocity(0, 0);
-        }
-        else {
-            switch (inputData.value) {
-            case 37: //LEFT
-                targetPlayer.goToPosition(targetPlayer.x - 1, targetPlayer.y);
-                break;
-            case 38: //UP
-                targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y - 1);
-                break;
-            case 39: //RIGHT
-                targetPlayer.goToPosition(targetPlayer.x + 1, targetPlayer.y);
-                break;
-            case 40: //DOWN
-                targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y + 1);
-                break;
-            default:
-                console.log("unknown key input from server");
-                break;
-            }
-        }
+socket.on("serverInput", function(data: string) {
+  console.log("Server sendet Input: " + data);
+  var inputData: any = JSON.parse(data);
+  var targetPlayer = world.getPlayer(inputData.clientId);
+  if (gameState == Constants.PLAY) {
+
+    switch (inputData.value) {
+      case 37: //LEFT
+        targetPlayer.goToPosition(targetPlayer.x - 1, targetPlayer.y);
+        break;
+      case 38: //UP
+        targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y - 1);
+        break;
+      case 39: //RIGHT
+        targetPlayer.goToPosition(targetPlayer.x + 1, targetPlayer.y);
+        break;
+      case 40: //DOWN
+        targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y + 1);
+        break;
+      default:
+        console.log("unknown key input from server");
+        break;
+
     }
+  }
 });
 /**
  *Empfängt die id vom Serevr
  */
-socket.on("serverAssignId", function (data) {
-    var clientId = JSON.parse(data).id;
-   
-    var worldFromServer = JSON.parse(data).world;
-    console.log(worldFromServer);
-    world = loadWorldFromServer(worldFromServer, clientId);
-    loadPlayersFromServer(worldFromServer.players);
-    //Start the game loop
-    gameLoop();
-    gameState = PLAY;
+socket.on("serverAssignId", function(data:string) {
+  var clientId = JSON.parse(data).id;
+
+  var worldFromServer:World = JSON.parse(data).world;
+  console.log(worldFromServer);
+  world = loadWorldFromServer(worldFromServer, clientId);
+  loadPlayersFromServer(worldFromServer.players);
+  //Start the game loop
+  gameLoop();
+  gameState = Constants.PLAY;
 });
 
-function loadWorldFromServer(worldFromServer, clientId) {
-    var mapFromServer = worldFromServer.map;
-    var myMap = loadMapFromServer(mapFromServer);
-    //Create World
-    var worldContainer = new PIXI.Container();
-    stage.addChild(worldContainer);
-    return new World(clientId, worldContainer, myMap, {});
+function loadWorldFromServer(worldFromServer:World, clientId:string):World {
+  var mapFromServer = worldFromServer.map;
+  var myMap = loadMapFromServer(mapFromServer);
+  //Create World
+  var worldContainer = new PIXI.Container();
+  stage.addChild(worldContainer);
+  return new World(clientId, worldContainer, myMap, {});
 }
 
-function loadMapFromServer(mapFromServer) {
-    var tilesFromServer = mapFromServer.tiles;
-    var myTiles = loadTilesFromServer(tilesFromServer);
-    return new Map(mapFromServer.height, mapFromServer.width, mapFromServer.tileHeight, mapFromServer.tileWidth, myTiles);
+function loadMapFromServer(mapFromServer:Map):Map {
+  var tilesFromServer = mapFromServer.tiles;
+  var myTiles = loadTilesFromServer(tilesFromServer);
+  return new Map(mapFromServer.height, mapFromServer.width, mapFromServer.tileHeight, mapFromServer.tileWidth, myTiles);
 }
 
 
-function loadTilesFromServer(tilesFromServer) {
-    //TODo Create Tiles
-    var newTiles = [];
-    for (var i in tilesFromServer) {
-        newTiles[i] = [];
-        for (var j in tilesFromServer[i]) {
-            newTiles[i][j] = new MapTile(i, j, tilesFromServer[i][j].type);
-        }
+function loadTilesFromServer(tilesFromServer:MapTile[][]):MapTile[][] {
+  //TODo Create Tiles
+  var newTiles:MapTile[][] = [];
+  for (var i=0; i<tilesFromServer.length; i++) {
+    newTiles[i] = [];
+    for (var j=0; j<tilesFromServer[i].length; j++) {
+      newTiles[i][j] = new MapTile(i, j, tilesFromServer[i][j].type);
     }
-    return newTiles;
+  }
+  return newTiles;
 }
 
-function loadPlayersFromServer(playersFromServer) {
-    
-    for (var i in playersFromServer) {
-        tempPlayer = playersFromServer[i];
-        world.addPlayer(i,tempPlayer.x,tempPlayer.y);
-    }
-    
+function loadPlayersFromServer(playersFromServer:{[index:string]:Player}):void {
+
+  for (var i in playersFromServer) {
+    var tempPlayer:Player = playersFromServer[i];
+    world.addPlayer(i, tempPlayer.x, tempPlayer.y);
+  }
+
 }
 /**
  *Fügt einen neuen Spieler hinzu
  */
-socket.on("serverNewPlayer", function (data) {
-    data=JSON.parse(data);
-    world.addPlayer(data.playerId,data.x,data.y);
+socket.on("serverNewPlayer", function(data:string) {
+  var newPlayer:any = JSON.parse(data);
+  world.addPlayer(newPlayer.playerId, newPlayer.x, newPlayer.y);
 });

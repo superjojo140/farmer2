@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Constants_1 = require("./Constants");
 /**
  * Class representing a MapTile
  * @constructor
@@ -7,11 +8,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {number} x - Horizontal Index of this Tile in the whole Map
  * @param {String} type - The type of this tile.
  */
-var MapTile = (function () {
+var MapTile = /** @class */ (function () {
     function MapTile(y, x, type) {
         this.y = y;
         this.x = x;
-        this.texture = mapTileTextures[type];
+        this.texture = Constants_1.Constants.mapTileTextures[type];
         this.type = type;
     }
     return MapTile;

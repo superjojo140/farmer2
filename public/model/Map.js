@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {number} tileWidth - Horizontal pixels per unique tile
  * @param {Array.Array.MapTile} tiles - a two dimensional Array with all MapTiles
  */
-var Map = (function () {
+var Map = /** @class */ (function () {
     function Map(height, width, tileHeight, tileWidth, tiles) {
         if (tiles.length != height || tiles[0].length != width) {
             throw "Height or width parameter doesn't fit to tiles array";

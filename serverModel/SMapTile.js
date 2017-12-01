@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {number} x - Horizontal Index of this Tile in the whole Map
  * @param {string} type - The tiles type
  */
-var SMapTile = (function () {
+var SMapTile = /** @class */ (function () {
     function SMapTile(y, x, type) {
         this.y = y;
         this.x = x;

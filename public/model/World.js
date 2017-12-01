@@ -10,7 +10,7 @@ var Player_1 = require("./Player");
  * @param {Map} map - The map, where the players interact
  * @param {Object} players - The players array
  */
-var World = (function () {
+var World = /** @class */ (function () {
     function World(clientId, container, map, players) {
         this.container = container;
         this.players = players;

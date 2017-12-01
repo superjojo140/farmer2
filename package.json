@@ -28,6 +28,9 @@
   },
   "devDependencies": {
     "@types/node": "^8.0.53",
-    "@types/pixi.js": "latest"
+    "@types/pixi.js": "latest",
+    "@types/jquery":"latest",
+    "@types/socket.io":"latest",
+    "@types/socket.io-client":"latest"
   }
 }

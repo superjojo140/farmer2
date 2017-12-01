@@ -1,5 +1,5 @@
 "use strict";
-
+import {Constants} from "./Constants";
 
 /**
  * Class representing a MapTile
@@ -16,7 +16,7 @@ export class MapTile{
   constructor(y:number, x:number,type:string) {
       this.y = y;
       this.x = x;
-      this.texture = mapTileTextures[type];
+      this.texture = Constants.mapTileTextures[type];
       this.type = type;
   }
 

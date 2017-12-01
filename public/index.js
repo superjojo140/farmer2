@@ -1,10 +1,15 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var MapTile_1 = require("./model/MapTile");
+var Map_1 = require("./model/Map");
+var World_1 = require("./model/World");
+var Constants_1 = require("./model/Constants");
 //Global Variables
 var stage = new PIXI.Container();
 var renderer = PIXI.autoDetectRenderer(640, 640);
 var socket = io();
 var world;
-var gameState = LOAD;
+var gameState = Constants_1.Constants.LOAD;
 //
 //
 document.body.appendChild(renderer.view);
@@ -31,7 +36,7 @@ function gameLoop() {
 /*Key Events*/
 $(document).keydown(function (event) {
     // TODO fix that the key is only triggered once https://stackoverflow.com/questions/19666440/jquery-keyboard-event-handler-press-and-hold
-    if (gameState == PLAY) {
+    if (gameState == Constants_1.Constants.PLAY) {
         var message = {
             type: "keyDown",
             value: event.keyCode,
@@ -41,7 +46,7 @@ $(document).keydown(function (event) {
     }
 });
 $(document).keyup(function (event) {
-    if (gameState == PLAY) {
+    if (gameState == Constants_1.Constants.PLAY) {
         var message = {
             type: "keyUp",
             value: event.keyCode,
@@ -64,28 +69,23 @@ socket.on("serverInput", function (data) {
     console.log("Server sendet Input: " + data);
     var inputData = JSON.parse(data);
     var targetPlayer = world.getPlayer(inputData.clientId);
-    if (gameState == PLAY) {
-        if (inputData.type == "keyUp") {
-            targetPlayer.setVelocity(0, 0);
-        }
-        else {
-            switch (inputData.value) {
-                case 37://LEFT
-                    targetPlayer.goToPosition(targetPlayer.x - 1, targetPlayer.y);
-                    break;
-                case 38://UP
-                    targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y - 1);
-                    break;
-                case 39://RIGHT
-                    targetPlayer.goToPosition(targetPlayer.x + 1, targetPlayer.y);
-                    break;
-                case 40://DOWN
-                    targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y + 1);
-                    break;
-                default:
-                    console.log("unknown key input from server");
-                    break;
-            }
+    if (gameState == Constants_1.Constants.PLAY) {
+        switch (inputData.value) {
+            case 37://LEFT
+                targetPlayer.goToPosition(targetPlayer.x - 1, targetPlayer.y);
+                break;
+            case 38://UP
+                targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y - 1);
+                break;
+            case 39://RIGHT
+                targetPlayer.goToPosition(targetPlayer.x + 1, targetPlayer.y);
+                break;
+            case 40://DOWN
+                targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y + 1);
+                break;
+            default:
+                console.log("unknown key input from server");
+                break;
         }
     }
 });
@@ -100,7 +100,7 @@ socket.on("serverAssignId", function (data) {
     loadPlayersFromServer(worldFromServer.players);
     //Start the game loop
     gameLoop();
-    gameState = PLAY;
+    gameState = Constants_1.Constants.PLAY;
 });
 function loadWorldFromServer(worldFromServer, clientId) {
     var mapFromServer = worldFromServer.map;
@@ -108,27 +108,27 @@ function loadWorldFromServer(worldFromServer, clientId) {
     //Create World
     var worldContainer = new PIXI.Container();
     stage.addChild(worldContainer);
-    return new World(clientId, worldContainer, myMap, {});
+    return new World_1.World(clientId, worldContainer, myMap, {});
 }
 function loadMapFromServer(mapFromServer) {
     var tilesFromServer = mapFromServer.tiles;
     var myTiles = loadTilesFromServer(tilesFromServer);
-    return new Map(mapFromServer.height, mapFromServer.width, mapFromServer.tileHeight, mapFromServer.tileWidth, myTiles);
+    return new Map_1.Map(mapFromServer.height, mapFromServer.width, mapFromServer.tileHeight, mapFromServer.tileWidth, myTiles);
 }
 function loadTilesFromServer(tilesFromServer) {
     //TODo Create Tiles
     var newTiles = [];
-    for (var i in tilesFromServer) {
+    for (var i = 0; i < tilesFromServer.length; i++) {
         newTiles[i] = [];
-        for (var j in tilesFromServer[i]) {
-            newTiles[i][j] = new MapTile(i, j, tilesFromServer[i][j].type);
+        for (var j = 0; j < tilesFromServer[i].length; j++) {
+            newTiles[i][j] = new MapTile_1.MapTile(i, j, tilesFromServer[i][j].type);
         }
     }
     return newTiles;
 }
 function loadPlayersFromServer(playersFromServer) {
     for (var i in playersFromServer) {
-        tempPlayer = playersFromServer[i];
+        var tempPlayer = playersFromServer[i];
         world.addPlayer(i, tempPlayer.x, tempPlayer.y);
     }
 }
@@ -136,6 +136,6 @@ function loadPlayersFromServer(playersFromServer) {
  *Fügt einen neuen Spieler hinzu
  */
 socket.on("serverNewPlayer", function (data) {
-    data = JSON.parse(data);
-    world.addPlayer(data.playerId, data.x, data.y);
+    var newPlayer = JSON.parse(data);
+    world.addPlayer(newPlayer.playerId, newPlayer.x, newPlayer.y);
 });

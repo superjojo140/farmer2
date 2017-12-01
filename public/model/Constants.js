@@ -1,14 +1,22 @@
 "use strict";
-var UP = 0;
-var RIGHT = 1;
-var DOWN = 2;
-var LEFT = 3;
-//GameStates
-var LOAD = 0;
-var PLAY = 1;
-//Config
-var PLAYER_SPEED = 4;
-//MapTile Texture Path
-var mapTileTextures = {
-    "acre": "field1.png"
-};
+Object.defineProperty(exports, "__esModule", { value: true });
+var Constants = /** @class */ (function () {
+    function Constants() {
+    }
+    Constants.UP = 0;
+    Constants.RIGHT = 1;
+    Constants.DOWN = 2;
+    Constants.LEFT = 3;
+    //GameStates
+    Constants.LOAD = 0;
+    Constants.PLAY = 1;
+    //Config
+    Constants.PLAYER_SPEED = 4;
+    //MapTile Texture Path
+    Constants.mapTileTextures = {
+        "acre": "field1.png"
+    };
+    return Constants;
+}());
+exports.Constants = Constants;
+;

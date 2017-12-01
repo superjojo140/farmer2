@@ -2,6 +2,7 @@
 import { MapTile } from "./MapTile";
 import { Map } from "./Map";
 import { World } from "./World";
+import {Constants} from "./Constants";
 
 
 
@@ -35,18 +36,18 @@ export class Player {
         var tileWidth: number = this.world.map.tileWidth;
         var tileHeight: number = this.world.map.tileHeight;
         //Calculation PLAYER_SPEED to avoid flackering, if the could never reach exactly its Position because of the PLAYER_SPEED
-        if (this.x * tileWidth >= this.sprite.x + PLAYER_SPEED) {
-            this.sprite.x += PLAYER_SPEED;
+        if (this.x * tileWidth >= this.sprite.x + Constants.PLAYER_SPEED) {
+            this.sprite.x += Constants.PLAYER_SPEED;
         }
-        else if (this.x * tileWidth <= this.sprite.x - PLAYER_SPEED) {
-            this.sprite.x -= PLAYER_SPEED;
+        else if (this.x * tileWidth <= this.sprite.x - Constants.PLAYER_SPEED) {
+            this.sprite.x -= Constants.PLAYER_SPEED;
         }
 
-        if (this.y * tileHeight >= this.sprite.y + PLAYER_SPEED) {
-            this.sprite.y += PLAYER_SPEED;
+        if (this.y * tileHeight >= this.sprite.y + Constants.PLAYER_SPEED) {
+            this.sprite.y += Constants.PLAYER_SPEED;
         }
-        else if (this.y * tileHeight <= this.sprite.y - PLAYER_SPEED) {
-            this.sprite.y -= PLAYER_SPEED;
+        else if (this.y * tileHeight <= this.sprite.y - Constants.PLAYER_SPEED) {
+            this.sprite.y -= Constants.PLAYER_SPEED;
         }
     };
 

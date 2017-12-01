@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {number} x - The x Coordinate of the Players Tile
  * @param {number} y - The y Coordinate of the Players Tile
  */
-var SPlayer = (function () {
+var SPlayer = /** @class */ (function () {
     function SPlayer(id, x, y) {
         if (arguments.length != 3) {
             throw "Uncorrect number of arguments for creating a new Player";
