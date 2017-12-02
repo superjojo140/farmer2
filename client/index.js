@@ -4,6 +4,7 @@ var MapTile_1 = require("./model/MapTile");
 var Map_1 = require("./model/Map");
 var World_1 = require("./model/World");
 var Constants_1 = require("./model/Constants");
+dfzerz;
 //Global Variables
 var stage = new PIXI.Container();
 var renderer = PIXI.autoDetectRenderer(640, 640);

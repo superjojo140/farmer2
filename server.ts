@@ -5,8 +5,7 @@ var express = require("express");
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
-app.use(express.static('client')); //Verzeichniss für eigene Scripts zur Verfügung stellen TODO für webpack anpassen
-app.use(express.static('node_modules')); //Verzeichniss für npm librarys zur Verfügung stellen TODO Brauchen wir mit webpack nciht mehr
+app.use(express.static('dist')); //Verzeichniss für eigene Scripts zur Verfügung stellen TODO für webpack anpassen
 //Include Own Classes for node_modules
 import {SMapTile} from "./serverModel/SMapTile";
 import {SPlayer} from "./serverModel/SPlayer";

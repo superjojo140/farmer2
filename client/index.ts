@@ -1,12 +1,15 @@
 "use strict";
 
+//Import Librarys
+import * as $ from "jquery";
+import * as PIXI from "pixi.js"
+import * as io from "socket.io-client"
 
 import { MapTile } from "./model/MapTile";
 import { Map } from "./model/Map";
 import { Player } from "./model/Player";
 import { World } from "./model/World";
 import {Constants} from "./model/Constants"
-
 
 
 //Global Variables
