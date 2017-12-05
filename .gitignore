@@ -1,6 +1,8 @@
 node_modules
+npm-debug.log
 #Generated Doku Folder
 out
 #Javascript files - they are all created by typescript
 *.js
 !webpack.config.js
+
