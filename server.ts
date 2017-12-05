@@ -41,7 +41,37 @@ io.sockets.on("connection", function(socket: any) {
     //Input from Client
     socket.on("clientInput", function(data:string) {
         console.log("Client with id " + socket.id + " says: " + data);
-        io.sockets.emit("serverInput", data);
+        var inputData:any = JSON.parse(data);
+        var targetPlayer:SPlayer = currentWorld.getPlayer(inputData.clientId);
+        //Extract pressed key from mapData
+        //TODO Validate if this is an allowed operation
+        switch (inputData.value) {
+          case "ArrowLeft": //LEFT
+            targetPlayer.setPosition(targetPlayer.x - 1, targetPlayer.y);
+            break;
+          case "ArrowUp": //UP
+            targetPlayer.setPosition(targetPlayer.x, targetPlayer.y - 1);
+            break;
+          case "ArrowRight": //RIGHT
+            targetPlayer.setPosition(targetPlayer.x + 1, targetPlayer.y);
+            break;
+          case "ArrowDown": //DOWN
+            targetPlayer.setPosition(targetPlayer.x, targetPlayer.y + 1);
+            break;
+          default:
+            console.log("unknown key input from server");
+            break;
+
+        }
+
+        var returnData:any = {
+          type: "movement",
+          target: "player",
+          clientId: inputData.clientId,
+          value: {x:targetPlayer.x,y:targetPlayer.y}
+        }
+
+        io.sockets.emit("serverInput", JSON.stringify(returnData));
     });
     //Client requests id
     socket.on("clientRequestId", function(data:string) {

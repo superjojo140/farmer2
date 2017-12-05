@@ -47,22 +47,13 @@ $(document).keydown(function(event) {
   if (gameState == Constants.PLAY) {
     var message = {
       type: "keyDown"
-      , value: event.keyCode
+      , value: event.key
       , clientId: world.clientId
     }
     sendToServer(message);
   }
 });
-$(document).keyup(function(event) {
-  if (gameState == Constants.PLAY) {
-    var message = {
-      type: "keyUp"
-      , value: event.keyCode
-      , clientId: world.clientId
-    }
-    sendToServer(message);
-  }
-});
+
 /**
  *Sendet ein Json Object an den Server
  *@param message {Object} This object is parsed to a string and sent to the server
@@ -75,28 +66,10 @@ function sendToServer(message: any): void {
  */
 socket.on("serverInput", function(data: string) {
   console.log("Server sendet Input: " + data);
-  var inputData: any = JSON.parse(data);
+  var inputData:any = JSON.parse(data);
   var targetPlayer = world.getPlayer(inputData.clientId);
   if (gameState == Constants.PLAY) {
-
-    switch (inputData.value) {
-      case 37: //LEFT
-        targetPlayer.goToPosition(targetPlayer.x - 1, targetPlayer.y);
-        break;
-      case 38: //UP
-        targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y - 1);
-        break;
-      case 39: //RIGHT
-        targetPlayer.goToPosition(targetPlayer.x + 1, targetPlayer.y);
-        break;
-      case 40: //DOWN
-        targetPlayer.goToPosition(targetPlayer.x, targetPlayer.y + 1);
-        break;
-      default:
-        console.log("unknown key input from server");
-        break;
-
-    }
+      targetPlayer.goToPosition(inputData.value.x,inputData.value.y);
   }
 });
 /**
