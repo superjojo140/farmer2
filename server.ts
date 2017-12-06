@@ -17,7 +17,7 @@ import { Message } from "./serverModel/Message";
 
 //Gloabal Variables
 var connections: { [key: string]: any } = [];
-
+//The servers world
 var currentWorld: SWorld = new SWorld("map1");
 
 //Start Server
@@ -34,11 +34,14 @@ io.sockets.on("connection", function(socket: any) {
     connections[socket.id] = socket;
     console.log("New Client connected: " + socket.id);
 
+
     //Disconnect
     socket.on("disconnect", function(data: string) {
         connections.splice(connections.indexOf(socket), 1);
         console.log("Client disconnected");
     });
+
+
     //Input from Client
     socket.on("clientInput", function(message: Message) {
         console.log("Client with id " + socket.id + " says: " + message);
@@ -67,6 +70,8 @@ io.sockets.on("connection", function(socket: any) {
         var returnMessage: Message = new Message(Constants.MOVEMENT, Constants.PLAYER, message.clientId, { x: targetPlayer.x, y: targetPlayer.y });
         io.sockets.emit("serverInput", returnMessage);
     });
+
+
     //Client requests id
     socket.on("clientRequestId", function(data: string) {
         console.log("Client requests id: " + socket.id);
