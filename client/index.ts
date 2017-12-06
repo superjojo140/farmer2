@@ -91,6 +91,13 @@ socket.on("serverInput", function(message: Message) {
         }
     }
 
+    else if (message.type == Constants.REMOVE) {
+        if (message.target == Constants.PLAYER) {
+            //Remove PLAYER
+            world.removePlayer(message.clientId);
+        }
+    }
+
 });
 /**
  *Empfängt die id vom Server und startet das Spiel

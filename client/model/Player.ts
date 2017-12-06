@@ -2,7 +2,7 @@
 import { MapTile } from "./MapTile";
 import { Map } from "./Map";
 import { World } from "./World";
-import {Constants} from "./Constants";
+import { Constants } from "./Constants";
 
 
 
@@ -19,7 +19,7 @@ export class Player {
     sprite: PIXI.Sprite;
     x: number;
     y: number;
-    id: string
+    id: string;
 
     constructor(id: string, x: number, y: number, world: World) {
         this.id = id;
@@ -75,6 +75,13 @@ export class Player {
     goToPosition(x: number, y: number) {
         this.x = x;
         this.y = y;
+    };
+
+    /**
+     *Destroy the Player
+     */
+    destroy(): void {
+        this.world.playerContainer.removeChild(this.sprite);
     };
 
 }

@@ -38,9 +38,21 @@ export class World {
     * @param {Number} y - The new Player's y Coordinate
     */
     addPlayer(id: string, x: number, y: number): void {
-        var player: Player = new Player(id,x,y,this);
+        var player: Player = new Player(id, x, y, this);
         this.players[id] = player;
         this.playerContainer.addChild(player.sprite);
+    }
+
+    /**
+     *Remove player from the world
+     * @param {String} id - The Player's id
+     */
+    removePlayer(id: string): void {
+        var playerToDelete: Player = this.players[id];
+        //Remove reference to the player in array
+        delete this.players[id];
+        //Delete Player Object
+        playerToDelete.destroy();
     }
 
     /**

@@ -37,7 +37,11 @@ io.sockets.on("connection", function(socket: any) {
 
     //Disconnect
     socket.on("disconnect", function(data: string) {
-        connections.splice(connections.indexOf(socket), 1);
+        currentWorld.removePlayer(socket.id);
+        //Notify all clients
+        var returnMessage: Message = new Message(Constants.REMOVE, Constants.PLAYER, socket.id, undefined);
+        io.sockets.emit("serverInput", returnMessage);
+
         console.log("Client disconnected");
     });
 
@@ -62,7 +66,7 @@ io.sockets.on("connection", function(socket: any) {
                 targetPlayer.setPosition(targetPlayer.x, targetPlayer.y + 1);
                 break;
             default:
-                console.log("unknown key input from server");
+                console.log("unknown key input from client");
                 break;
 
         }
