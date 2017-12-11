@@ -9,8 +9,8 @@ import { MapTile } from "./model/MapTile";
 import { Map } from "./model/Map";
 import { Player } from "./model/Player";
 import { World } from "./model/World";
-import { Constants } from "./model/Constants";
-import { Message } from "./model/Message";
+import { Constants } from "../dist/data/Constants";
+import { Message } from "../dist/data/Message";
 
 
 //Global Variables

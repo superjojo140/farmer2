@@ -1,5 +1,5 @@
 "use strict";
-import {Constants} from "./Constants";
+import { Constants } from "../../dist/data/Constants";
 
 /**
  * Class representing a MapTile
@@ -8,16 +8,16 @@ import {Constants} from "./Constants";
  * @param {number} x - Horizontal Index of this Tile in the whole Map
  * @param {String} type - The type of this tile.
  */
-export class MapTile{
-  x:number;
-  y:number;
-  type:string;
-  texture:string;
-  constructor(y:number, x:number,type:string) {
-      this.y = y;
-      this.x = x;
-      this.texture = Constants.mapTileTextures[type];
-      this.type = type;
-  }
+export class MapTile {
+    x: number;
+    y: number;
+    type: string;
+    texture: string;
+    constructor(y: number, x: number, type: string) {
+        this.y = y;
+        this.x = x;
+        this.texture = Constants.mapTileTextures[type];
+        this.type = type;
+    }
 
 }

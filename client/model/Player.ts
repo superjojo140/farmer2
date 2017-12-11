@@ -2,7 +2,7 @@
 import { MapTile } from "./MapTile";
 import { Map } from "./Map";
 import { World } from "./World";
-import { Constants } from "./Constants";
+import { Constants } from "../../dist/data/Constants";
 
 
 

@@ -7,12 +7,12 @@ var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
 app.use(express.static('dist')); //Verzeichniss für eigene Scripts zur Verfügung stellen
 //Include Own Classes for node_modules
-import { Constants } from "./serverModel/Constants"
+import { Constants } from "./dist/data/Constants"
 import { SMapTile } from "./serverModel/SMapTile";
 import { SPlayer } from "./serverModel/SPlayer";
 import { SMap } from "./serverModel/SMap";
 import { SWorld } from "./serverModel/SWorld";
-import { Message } from "./serverModel/Message";
+import { Message } from "./dist/data/Message";
 
 
 //Gloabal Variables
