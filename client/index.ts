@@ -119,7 +119,7 @@ function loadWorldFromServer(worldFromServer: World, clientId: string): World {
     //Create World
     var worldContainer = new PIXI.Container();
     stage.addChild(worldContainer);
-    return new World(clientId, worldContainer, myMap, {});
+    return new World(clientId, worldContainer, myMap);
 }
 
 function loadMapFromServer(mapFromServer: Map): Map {

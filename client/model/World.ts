@@ -11,7 +11,6 @@ import { Player } from "./Player";
  * @param {String} clientId - The socket.io Client Id
  * @param {Object} container - The Container to add all the GameObjects
  * @param {Map} map - The map, where the players interact
- * @param {Object} players - The players array
  */
 export class World {
     clientId: string;
@@ -20,9 +19,9 @@ export class World {
     playerContainer: PIXI.Container;
     map: Map;
     players: { [index: string]: Player };
-    constructor(clientId: string, container: PIXI.Container, map: Map, players: { [index: string]: Player }) {
+    constructor(clientId: string, container: PIXI.Container, map: Map) {
         this.container = container;
-        this.players = players;
+        this.players = {};
         this.clientId = clientId;
         this.map = map;
         this.worldContainer = this.map.toPixiContainer();
