@@ -32,12 +32,12 @@ export class Map {
      *Makes a Pixi Container out of a Map
      *@return {Container} The generated Pixi Container
      */
-    toPixiContainer():PIXI.Container{
-        var con:PIXI.Container = new PIXI.Container();
-        for (var i:number = 0; i < this.height; i++) {
-            for (var j:number = 0; j < this.width; j++) {
-                var myTile:MapTile = this.tiles[i][j];
-                var mySprite:PIXI.Sprite = new PIXI.Sprite(PIXI.loader.resources["pics/" + myTile.texture].texture);
+    toPixiContainer(): PIXI.Container {
+        var con: PIXI.Container = new PIXI.Container();
+        for (var i: number = 0; i < this.height; i++) {
+            for (var j: number = 0; j < this.width; j++) {
+                var myTile: MapTile = this.tiles[i][j];
+                var mySprite: PIXI.Sprite = new PIXI.Sprite(PIXI.loader.resources["spritesheet.json"].textures["field1"]);
                 mySprite.x = myTile.x * this.tileWidth;
                 mySprite.y = myTile.y * this.tileHeight;
                 con.addChild(mySprite);

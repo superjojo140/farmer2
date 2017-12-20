@@ -9,8 +9,8 @@ import { MapTile } from "./model/MapTile";
 import { Map } from "./model/Map";
 import { Player } from "./model/Player";
 import { World } from "./model/World";
-import { Constants } from "../dist/data/Constants";
-import { Message } from "../dist/data/Message";
+import { Constants } from "../data/Constants";
+import { Message } from "../data/Message";
 
 
 //Global Variables
@@ -23,7 +23,7 @@ var gameState: number = Constants.LOAD;
 //
 document.body.appendChild(renderer.view);
 //Start Pixi loader
-PIXI.loader.add(["pics/boy_down.png", "pics/arena.jpg", "pics/field1.png", "data/maps/map1.json"]).load(loaderFinished);
+PIXI.loader.add(["spritesheet.json"]).load(loaderFinished);
 
 
 

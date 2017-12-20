@@ -4,11 +4,12 @@
   "description": "A pretty cool farming game",
   "main": "index.js",
   "scripts": {
-    "build-and-run": "echo \"Building Server:\" && tsc && echo \"Building Client:\" && webpack && node server.js",
+    "build-and-run": "npm run build-all && npm run run",
     "run": "node server.js",
-    "build-all": "echo \"Building Server:\" && tsc && echo \"Building Client:\" && webpack",
+    "build-all": "npm run gen-spritesheet && echo \"Building Server:\" && tsc && echo \"Building Client:\" && webpack",
     "build-server": "echo \"Building Server:\" && tsc",
-    "build-client": "echo \"Building Client:\" && webpack --display-error-details"
+    "build-client": "echo \"Building Client:\" && webpack --display-error-details",
+    "gen-spritesheet": "echo \"Generating Spritesheet:\" && TexturePacker --format pixijs --data ./dist/spritesheet.json --png-opt-level 0 --disable-auto-alias --extrude 0 --algorithm Basic --trim-mode None --trim-sprite-names ./data/pics/"
   },
   "repository": {
     "type": "git",
