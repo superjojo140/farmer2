@@ -3,6 +3,7 @@ import { MapTile } from "./MapTile";
 import { Map } from "./Map";
 import { World } from "./World";
 import { Constants } from "../../data/Constants";
+import { TextureLoader } from "./TextureLoader";
 
 
 
@@ -24,8 +25,7 @@ export class Player {
     constructor(id: string, x: number, y: number, world: World) {
         this.id = id;
         this.world = world;
-        var texture: PIXI.Texture = PIXI.loader.resources["spritesheet.json"].textures["boy_down"];
-        this.sprite = new PIXI.Sprite(texture);
+        this.sprite = TextureLoader.getSprite("boy_down");
         this.setPosition(x, y);
     }
 

@@ -11,6 +11,7 @@ import { Player } from "./model/Player";
 import { World } from "./model/World";
 import { Constants } from "../data/Constants";
 import { Message } from "../data/Message";
+import { TextureLoader } from "./model/TextureLoader";
 
 
 //Global Variables
@@ -31,6 +32,7 @@ PIXI.loader.add(["spritesheet.json"]).load(loaderFinished);
  * Wird aufgerufen, sobald Pixi alle Elemente geladen hat
  */
 function loaderFinished(): void {
+    TextureLoader.init(PIXI.loader.resources["spritesheet.json"]);
     renderer.render(stage);
     //Request an id from server
     socket.emit("clientRequestId", "");
