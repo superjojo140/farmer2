@@ -1,7 +1,7 @@
 "use strict";
-import { ClientMapTile } from "./MapTile";
-import { ClientMap } from "./Map";
-import { ClientPlayer } from "./Player";
+import { ClientMapTile } from "./ClientMapTile";
+import { ClientMap } from "./ClientMap";
+import { ClientPlayer } from "./ClientPlayer";
 
 
 /**

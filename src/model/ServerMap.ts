@@ -1,5 +1,5 @@
 "use strict";
-import {ServerMapTile} from "./SMapTile";
+import { ServerMapTile } from "./ServerMapTile";
 
 
 /**

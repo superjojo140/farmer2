@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build-and-run": "npm run build-all && npm run run",
-    "run": "node server.js",
-    "build-all": "npm run gen-spritesheet && npm run build-server && npm run build-client",
-    "build-server": "echo \"Building Server:\" && tsc",
-    "build-client": "echo \"Building Client:\" && webpack",
+    "run": "node ./src/server.js",
+    "build-all": "npm run gen-spritesheet && npm run build && npm webpack",
+    "build": "echo \"Building Js-Files:\" && tsc",
+    "webpack": "echo \"Webpack is generating files:\" && webpack",
     "gen-spritesheet": "echo \"Generating Spritesheet:\" && TexturePacker --format pixijs --data ./dist/spritesheet.json --png-opt-level 0 --disable-auto-alias --extrude 0 --algorithm Basic --trim-mode None --trim-sprite-names ./data/pics/"
   },
   "repository": {

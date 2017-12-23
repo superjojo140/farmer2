@@ -1,5 +1,5 @@
 "use strict";
-import { Constants } from "../../data/Constants";
+import { Constants } from "./Constants";
 
 /**
  * Class representing a MapTile

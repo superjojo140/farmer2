@@ -1,5 +1,5 @@
 "use strict";
-import { ClientMapTile } from "./MapTile";
+import { ClientMapTile } from "./ClientMapTile";
 import { TextureLoader } from "./TextureLoader";
 
 
