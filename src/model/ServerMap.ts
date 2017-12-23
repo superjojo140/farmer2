@@ -1,5 +1,5 @@
 "use strict";
-import {SMapTile} from "./SMapTile";
+import {ServerMapTile} from "./SMapTile";
 
 
 /**
@@ -11,14 +11,14 @@ import {SMapTile} from "./SMapTile";
  * @param {number} tileWidth - Horizontal pixels per unique tile
  * @param {Array.Array.MapTile} tiles - a two dimensional Array with all MapTiles
  */
-export class SMap {
+export class ServerMap {
     //Properties declaration
     width: number;
     height: number;
     tileHeight: number;
     tileWidth: number;
-    tiles: SMapTile[][];
-    constructor(height: number, width: number, tileHeight: number, tileWidth: number, tiles: SMapTile[][]) {
+    tiles: ServerMapTile[][];
+    constructor(height: number, width: number, tileHeight: number, tileWidth: number, tiles: ServerMapTile[][]) {
         if (tiles.length != height || tiles[0].length != width) {
             throw "Height or width parameter doesn't fit to tiles array";
         }

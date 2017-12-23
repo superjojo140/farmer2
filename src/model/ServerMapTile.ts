@@ -8,7 +8,7 @@
  * @param {number} x - Horizontal Index of this Tile in the whole Map
  * @param {string} type - The tiles type
  */
-export class SMapTile {
+export class ServerMapTile {
     x: number;
     y: number;
     type: string;

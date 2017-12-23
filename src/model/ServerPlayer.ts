@@ -9,7 +9,7 @@
  * @param {number} x - The x Coordinate of the Players Tile
  * @param {number} y - The y Coordinate of the Players Tile
  */
-export class SPlayer {
+export class ServerPlayer {
     id: string;
     x: number;
     y: number;

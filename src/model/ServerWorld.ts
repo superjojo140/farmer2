@@ -1,8 +1,8 @@
 "use strict";
 
-import { SMapTile } from "./SMapTile";
-import { SPlayer } from "./SPlayer";
-import { SMap } from "./SMap";
+import { ServerMapTile } from "./SMapTile";
+import { ServerPlayer } from "./SPlayer";
+import { ServerMap } from "./SMap";
 
 /**
  * Class representing a World
@@ -10,9 +10,9 @@ import { SMap } from "./SMap";
  * @constructor
  * @param {Object} mapName - The map, where the players interact
  */
-export class SWorld {
-    players: { [key: string]: SPlayer };
-    map: SMap;
+export class ServerWorld {
+    players: { [key: string]: ServerPlayer };
+    map: ServerMap;
 
     constructor(mapName: string) {
         this.players = {};
@@ -26,7 +26,7 @@ export class SWorld {
      * @param {Number} y - The new Player's y coordinate
      */
     addPlayer(id: string, x: number, y: number): void {
-        var player = new SPlayer(id, x, y);
+        var player = new ServerPlayer(id, x, y);
         this.players[id] = player;
     }
 
@@ -35,7 +35,7 @@ export class SWorld {
      * @param {String} id - The Player's id
      */
     removePlayer(id: string): void {
-        var playerToDelete: SPlayer = this.players[id];
+        var playerToDelete: ServerPlayer = this.players[id];
         //Remove reference to the player in array
         delete this.players[id];
     }
@@ -44,7 +44,7 @@ export class SWorld {
      *Returns teh Player with the specified id
      * @param {String} id - The new Player's id
      */
-    getPlayer(id: string): SPlayer {
+    getPlayer(id: string): ServerPlayer {
         return this.players[id];
     }
     /**
@@ -52,21 +52,21 @@ export class SWorld {
      *moves the players etc...
      */
 
-    loadMap(mapName: string): SMap {
+    loadMap(mapName: string): ServerMap {
         var mapData: any = JSON.parse(require('fs').readFileSync('./data/maps/' + mapName + '.json', 'utf8'));
         if (mapData == undefined) {
             console.log("Can't load Map File " + mapName);
         }
-        var tiles: SMapTile[][] = [];
+        var tiles: ServerMapTile[][] = [];
         //Iterate through Tiles Array
         for (var i = 0; i < mapData.height; i++) {
             tiles[i] = [];
             for (var j = 0; j < mapData.width; j++) {
-                tiles[i][j] = new SMapTile(i, j, mapData.tiles[i][j]);
+                tiles[i][j] = new ServerMapTile(i, j, mapData.tiles[i][j]);
             }
         }
         //Parse JSON File
-        var newMap: SMap = new SMap(mapData.height, mapData.width, mapData.tileHeight, mapData.tileWidth, tiles);
+        var newMap: ServerMap = new ServerMap(mapData.height, mapData.width, mapData.tileHeight, mapData.tileWidth, tiles);
         return newMap;
     }
 }
