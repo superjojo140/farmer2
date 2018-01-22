@@ -6,9 +6,9 @@
   "scripts": {
     "build-and-run": "npm run build-all && npm run run",
     "run": "node server.js",
-    "build-all": "npm run gen-spritesheet && npm run build-server && npm run build-client",
+    "build-all": "npm run gen-spritesheet && echo \"Building Server:\" && tsc && echo \"Building Client:\" && webpack",
     "build-server": "echo \"Building Server:\" && tsc",
-    "build-client": "echo \"Building Client:\" && webpack",
+    "build-client": "echo \"Building Client:\" && webpack --display-error-details",
     "gen-spritesheet": "echo \"Generating Spritesheet:\" && TexturePacker --format pixijs --data ./dist/spritesheet.json --png-opt-level 0 --disable-auto-alias --extrude 0 --algorithm Basic --trim-mode None --trim-sprite-names ./data/pics/"
   },
   "repository": {
