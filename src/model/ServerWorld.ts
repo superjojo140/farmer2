@@ -14,8 +14,9 @@ export class ServerWorld {
     players: { [key: string]: ServerPlayer };
     map: ServerMap;
 
-    constructor() {
+    constructor(mapName: string) {
         this.players = {};
+        this.map = this.loadMap(mapName);
     }
 
     /**

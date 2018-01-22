@@ -14,6 +14,9 @@ export class ServerPlayer {
     x: number;
     y: number;
     constructor(id: string, x: number, y: number) {
+        if (arguments.length != 3) {
+            throw "Uncorrect number of arguments for creating a new Player";
+        }
         this.id = id;
         this.setPosition(x, y);
     }

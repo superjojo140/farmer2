@@ -1,7 +1,6 @@
 "use strict";
 import { ClientMapTile } from "./ClientMapTile";
 import { TextureLoader } from "./TextureLoader";
-import { ServerMap } from "./ServerMap";
 
 
 /**
@@ -11,25 +10,25 @@ import { ServerMap } from "./ServerMap";
  * @param {number} width - Number of the tiles horizontal
  * @param {number} tileHeight -Vertical pixels per unique Tile
  * @param {number} tileWidth - Horizontal pixels per unique tile
- * @param {Array.Array.ServerMapTile} tiles - a two dimensional Array with all MapTiles
+ * @param {Array.Array.MapTile} tiles - a two dimensional Array with all MapTiles
  */
-export class ClientMap extends ServerMap {
-
-    heigth: number;
+export class ClientMap {
     width: number;
-    tileHeight: number;
+    height: number;
     tileWidth: number;
-    //Override tiles type
+    tileHeight: number;
     tiles: ClientMapTile[][];
 
     constructor(height: number, width: number, tileHeight: number, tileWidth: number, tiles: ClientMapTile[][]) {
         if (tiles.length != height || tiles[0].length != width) {
             throw "Height or width parameter doesn't fit to tiles array";
         }
-        super(height, width, tileHeight, tileWidth, tiles);
+        this.width = width;
+        this.height = height;
+        this.tileHeight = tileHeight;
+        this.tileWidth = tileWidth;
+        this.tiles = tiles;
     }
-
-
     /**
      *Makes a Pixi Container out of a Map
      *@return {Container} The generated Pixi Container

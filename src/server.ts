@@ -18,8 +18,7 @@ import { Message } from "./model/Message";
 //Gloabal Variables
 var connections: { [key: string]: any } = [];
 //The servers world
-var currentWorld: ServerWorld = new ServerWorld();
-currentWorld.loadMap("map1");
+var currentWorld: ServerWorld = new ServerWorld("map1");
 
 //Start Server
 server.listen(3000);
