@@ -1,7 +1,7 @@
 "use strict";
-import { ClientMapTile } from "./MapTile";
-import { ClientMap } from "./Map";
-import { ClientWorld } from "./World";
+import { MapTile } from "./MapTile";
+import { Map } from "./Map";
+import { World } from "./World";
 import { Constants } from "../../data/Constants";
 import { TextureLoader } from "./TextureLoader";
 
@@ -13,16 +13,16 @@ import { TextureLoader } from "./TextureLoader";
   * @param {String} id - The players id
  * @param {number} x - The x Coordinate of the Players Tile
  * @param {number} y - The y Coordinate of the Players Tile
- * @param {ClientWorld} world - The world
+ * @param {World} world - The world
  */
-export class ClientPlayer {
-    world: ClientWorld;
+export class Player {
+    world: World;
     sprite: PIXI.Sprite;
     x: number;
     y: number;
     id: string;
 
-    constructor(id: string, x: number, y: number, world: ClientWorld) {
+    constructor(id: string, x: number, y: number, world: World) {
         this.id = id;
         this.world = world;
         this.sprite = TextureLoader.getSprite("boy_down");

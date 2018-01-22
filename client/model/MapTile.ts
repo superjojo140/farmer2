@@ -8,7 +8,7 @@ import { Constants } from "../../data/Constants";
  * @param {number} x - Horizontal Index of this Tile in the whole Map
  * @param {String} type - The type of this tile.
  */
-export class ClientMapTile {
+export class MapTile {
     x: number;
     y: number;
     type: string;

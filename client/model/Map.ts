@@ -1,5 +1,5 @@
 "use strict";
-import { ClientMapTile } from "./MapTile";
+import { MapTile } from "./MapTile";
 import { TextureLoader } from "./TextureLoader";
 
 
@@ -12,14 +12,14 @@ import { TextureLoader } from "./TextureLoader";
  * @param {number} tileWidth - Horizontal pixels per unique tile
  * @param {Array.Array.MapTile} tiles - a two dimensional Array with all MapTiles
  */
-export class ClientMap {
+export class Map {
     width: number;
     height: number;
     tileWidth: number;
     tileHeight: number;
-    tiles: ClientMapTile[][];
+    tiles: MapTile[][];
 
-    constructor(height: number, width: number, tileHeight: number, tileWidth: number, tiles: ClientMapTile[][]) {
+    constructor(height: number, width: number, tileHeight: number, tileWidth: number, tiles: MapTile[][]) {
         if (tiles.length != height || tiles[0].length != width) {
             throw "Height or width parameter doesn't fit to tiles array";
         }
@@ -37,7 +37,7 @@ export class ClientMap {
         var con: PIXI.Container = new PIXI.Container();
         for (var i: number = 0; i < this.height; i++) {
             for (var j: number = 0; j < this.width; j++) {
-                var myTile: ClientMapTile = this.tiles[i][j];
+                var myTile: MapTile = this.tiles[i][j];
                 var mySprite: PIXI.Sprite = TextureLoader.getSprite("field1");
                 mySprite.x = myTile.x * this.tileWidth;
                 mySprite.y = myTile.y * this.tileHeight;

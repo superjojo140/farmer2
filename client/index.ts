@@ -5,10 +5,10 @@ import * as $ from "jquery";
 import * as PIXI from "pixi.js"
 import * as io from "socket.io-client"
 
-import { ClientMapTile } from "./model/MapTile";
-import { ClientMap } from "./model/Map";
-import { ClientPlayer } from "./model/Player";
-import { ClientWorld } from "./model/World";
+import { MapTile } from "./model/MapTile";
+import { Map } from "./model/Map";
+import { Player } from "./model/Player";
+import { World } from "./model/World";
 import { Constants } from "../data/Constants";
 import { Message } from "../data/Message";
 import { TextureLoader } from "./model/TextureLoader";
@@ -18,7 +18,7 @@ import { TextureLoader } from "./model/TextureLoader";
 var stage: PIXI.Container = new PIXI.Container();
 var renderer = PIXI.autoDetectRenderer(640, 640);
 var socket = io();
-var world: ClientWorld;
+var world: World;
 var gameState: number = Constants.LOAD;
 //
 //
@@ -106,7 +106,7 @@ socket.on("serverInput", function(message: Message) {
  */
 socket.on("serverAssignId", function(message: Message) {
     var clientId = message.clientId;
-    var worldFromServer: ClientWorld = message.value;
+    var worldFromServer: World = message.value;
     console.log(worldFromServer);
     world = loadWorldFromServer(worldFromServer, clientId);
     loadPlayersFromServer(worldFromServer.players);
@@ -115,38 +115,38 @@ socket.on("serverAssignId", function(message: Message) {
     gameState = Constants.PLAY;
 });
 
-function loadWorldFromServer(worldFromServer: ClientWorld, clientId: string): ClientWorld {
+function loadWorldFromServer(worldFromServer: World, clientId: string): World {
     var mapFromServer = worldFromServer.map;
     var myMap = loadMapFromServer(mapFromServer);
     //Create World
     var worldContainer = new PIXI.Container();
     stage.addChild(worldContainer);
-    return new ClientWorld(clientId, worldContainer, myMap);
+    return new World(clientId, worldContainer, myMap);
 }
 
-function loadMapFromServer(mapFromServer: ClientMap): ClientMap {
+function loadMapFromServer(mapFromServer: Map): Map {
     var tilesFromServer = mapFromServer.tiles;
     var myTiles = loadTilesFromServer(tilesFromServer);
-    return new ClientMap(mapFromServer.height, mapFromServer.width, mapFromServer.tileHeight, mapFromServer.tileWidth, myTiles);
+    return new Map(mapFromServer.height, mapFromServer.width, mapFromServer.tileHeight, mapFromServer.tileWidth, myTiles);
 }
 
 
-function loadTilesFromServer(tilesFromServer: ClientMapTile[][]): ClientMapTile[][] {
+function loadTilesFromServer(tilesFromServer: MapTile[][]): MapTile[][] {
     //TODo Create Tiles
-    var newTiles: ClientMapTile[][] = [];
+    var newTiles: MapTile[][] = [];
     for (var i = 0; i < tilesFromServer.length; i++) {
         newTiles[i] = [];
         for (var j = 0; j < tilesFromServer[i].length; j++) {
-            newTiles[i][j] = new ClientMapTile(i, j, tilesFromServer[i][j].type);
+            newTiles[i][j] = new MapTile(i, j, tilesFromServer[i][j].type);
         }
     }
     return newTiles;
 }
 
-function loadPlayersFromServer(playersFromServer: { [index: string]: ClientPlayer }): void {
+function loadPlayersFromServer(playersFromServer: { [index: string]: Player }): void {
 
     for (var i in playersFromServer) {
-        var tempPlayer: ClientPlayer = playersFromServer[i];
+        var tempPlayer: Player = playersFromServer[i];
         world.addPlayer(i, tempPlayer.x, tempPlayer.y);
     }
 

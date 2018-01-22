@@ -1,7 +1,7 @@
 "use strict";
-import { ClientMapTile } from "./MapTile";
-import { ClientMap } from "./Map";
-import { ClientPlayer } from "./Player";
+import { MapTile } from "./MapTile";
+import { Map } from "./Map";
+import { Player } from "./Player";
 
 
 /**
@@ -10,16 +10,16 @@ import { ClientPlayer } from "./Player";
  * @constructor
  * @param {String} clientId - The socket.io Client Id
  * @param {Object} container - The Container to add all the GameObjects
- * @param {ClientMap} map - The map, where the players interact
+ * @param {Map} map - The map, where the players interact
  */
-export class ClientWorld {
+export class World {
     clientId: string;
     container: PIXI.Container;
     worldContainer: PIXI.Container;
     playerContainer: PIXI.Container;
-    map: ClientMap;
-    players: { [index: string]: ClientPlayer };
-    constructor(clientId: string, container: PIXI.Container, map: ClientMap) {
+    map: Map;
+    players: { [index: string]: Player };
+    constructor(clientId: string, container: PIXI.Container, map: Map) {
         this.container = container;
         this.players = {};
         this.clientId = clientId;
@@ -37,7 +37,7 @@ export class ClientWorld {
     * @param {Number} y - The new Player's y Coordinate
     */
     addPlayer(id: string, x: number, y: number): void {
-        var player: ClientPlayer = new ClientPlayer(id, x, y, this);
+        var player: Player = new Player(id, x, y, this);
         this.players[id] = player;
         this.playerContainer.addChild(player.sprite);
     }
@@ -47,7 +47,7 @@ export class ClientWorld {
      * @param {String} id - The Player's id
      */
     removePlayer(id: string): void {
-        var playerToDelete: ClientPlayer = this.players[id];
+        var playerToDelete: Player = this.players[id];
         //Remove reference to the player in array
         delete this.players[id];
         //Delete Player Object
@@ -58,7 +58,7 @@ export class ClientWorld {
     *Returns teh Player with the specified id
     * @param {String} id - The new Player's id
     */
-    getPlayer(id: string): ClientPlayer {
+    getPlayer(id: string): Player {
         return this.players[id];
     }
 

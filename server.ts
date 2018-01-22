@@ -8,17 +8,17 @@ var io = require("socket.io").listen(server);
 app.use(express.static('dist')); //Verzeichniss für eigene Scripts zur Verfügung stellen
 //Include Own Classes for node_modules
 import { Constants } from "./data/Constants"
-import { ServerMapTile } from "./serverModel/SMapTile";
-import { ServerPlayer } from "./serverModel/SPlayer";
-import { ServerMap } from "./serverModel/SMap";
-import { ServerWorld } from "./serverModel/SWorld";
+import { SMapTile } from "./serverModel/SMapTile";
+import { SPlayer } from "./serverModel/SPlayer";
+import { SMap } from "./serverModel/SMap";
+import { SWorld } from "./serverModel/SWorld";
 import { Message } from "./data/Message";
 
 
 //Gloabal Variables
 var connections: { [key: string]: any } = [];
 //The servers world
-var currentWorld: ServerWorld = new ServerWorld("map1");
+var currentWorld: SWorld = new SWorld("map1");
 
 //Start Server
 server.listen(3000);
@@ -49,7 +49,7 @@ io.sockets.on("connection", function(socket: any) {
     //Input from Client
     socket.on("clientInput", function(message: Message) {
         console.log("Client with id " + socket.id + " says: " + message);
-        var targetPlayer: ServerPlayer = currentWorld.getPlayer(message.clientId);
+        var targetPlayer: SPlayer = currentWorld.getPlayer(message.clientId);
         //Extract pressed key from mapData
         //TODO Validate if this is an allowed operation
         switch (message.value) {
@@ -86,7 +86,7 @@ io.sockets.on("connection", function(socket: any) {
         //Add new clients Player
         currentWorld.addPlayer(socket.id, 0, 0);
         //Notify all Clients
-        var addedPlayer: ServerPlayer = currentWorld.getPlayer(socket.id);
+        var addedPlayer: SPlayer = currentWorld.getPlayer(socket.id);
         var returnMessage: Message = new Message(Constants.CREATE, Constants.PLAYER, addedPlayer.id, { x: addedPlayer.x, y: addedPlayer.y });
         io.sockets.emit("serverInput", returnMessage);
 
