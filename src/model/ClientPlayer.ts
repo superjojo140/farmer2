@@ -4,6 +4,7 @@ import { ClientMap } from "./ClientMap";
 import { ClientWorld } from "./ClientWorld";
 import { Constants } from "./Constants";
 import { TextureLoader } from "./TextureLoader";
+import { ServerPlayer } from "./ServerPlayer";
 
 
 
@@ -15,7 +16,7 @@ import { TextureLoader } from "./TextureLoader";
  * @param {number} y - The y Coordinate of the Players Tile
  * @param {ClientWorld} world - The world
  */
-export class ClientPlayer {
+export class ClientPlayer extends ServerPlayer {
     world: ClientWorld;
     sprite: PIXI.Sprite;
     x: number;
@@ -23,10 +24,8 @@ export class ClientPlayer {
     id: string;
 
     constructor(id: string, x: number, y: number, world: ClientWorld) {
-        this.id = id;
-        this.world = world;
+        super(id, x, y);
         this.sprite = TextureLoader.getSprite("boy_down");
-        this.setPosition(x, y);
     }
 
     /**
@@ -57,6 +56,7 @@ export class ClientPlayer {
      *Set the Position of the Player
      * @param {number} x - The x Coordinate of the Players Tile
      * @param {number} y - The y Coordinate of the Players Tile
+     * @override
      */
     setPosition(x: number, y: number): void {
         this.x = x;
