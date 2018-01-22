@@ -54,6 +54,6 @@
   },
   "include": [
         "./*.ts",
-        "./serverModel/*.ts"
+        "./model/*.ts"
     ],
 }

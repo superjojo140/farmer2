@@ -1,8 +1,8 @@
 "use strict";
 
-import { ServerMapTile } from "./ServerMapTile";
-import { ServerPlayer } from "./ServerPlayer";
-import { ServerMap } from "./ServerMap";
+import { ServerMapTile } from "./SMapTile";
+import { ServerPlayer } from "./SPlayer";
+import { ServerMap } from "./SMap";
 
 /**
  * Class representing a World

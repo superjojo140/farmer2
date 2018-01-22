@@ -5,12 +5,12 @@ import * as $ from "jquery";
 import * as PIXI from "pixi.js"
 import * as io from "socket.io-client"
 
-import { ClientMapTile } from "./model/ClientMapTile";
-import { ClientMap } from "./model/ClientMap";
-import { ClientPlayer } from "./model/ClientPlayer";
-import { ClientWorld } from "./model/ClientWorld";
-import { Constants } from "./model/Constants";
-import { Message } from "./model/Message";
+import { ClientMapTile } from "./model/MapTile";
+import { ClientMap } from "./model/Map";
+import { ClientPlayer } from "./model/Player";
+import { ClientWorld } from "./model/World";
+import { Constants } from "../data/Constants";
+import { Message } from "../data/Message";
 import { TextureLoader } from "./model/TextureLoader";
 
 

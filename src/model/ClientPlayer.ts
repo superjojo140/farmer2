@@ -1,8 +1,8 @@
 "use strict";
-import { ClientMapTile } from "./ClientMapTile";
-import { ClientMap } from "./ClientMap";
-import { ClientWorld } from "./ClientWorld";
-import { Constants } from "./Constants";
+import { ClientMapTile } from "./MapTile";
+import { ClientMap } from "./Map";
+import { ClientWorld } from "./World";
+import { Constants } from "../../data/Constants";
 import { TextureLoader } from "./TextureLoader";
 
 
