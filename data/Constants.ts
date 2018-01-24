@@ -1,4 +1,5 @@
 "use strict";
+import { SPlant } from "../serverModel/SPlant"
 
 export class Constants {
 
@@ -24,4 +25,9 @@ export class Constants {
     static MOVEMENT: string = "movement";
     static CREATE: string = "create";
     static REMOVE: string = "remove";
+
+    //Plants
+    static PLANTS: { [index: string]: SPlant } = {
+        "paprika": { "name": "paprika", "sizeToHarvest": 120, "harvest": [{ "itemName": "paprika", "count": 2 }] }
+    }
 };
