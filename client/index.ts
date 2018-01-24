@@ -12,14 +12,16 @@ import { World } from "./model/World";
 import { Constants } from "../data/Constants";
 import { Message } from "../data/Message";
 import { TextureLoader } from "./model/TextureLoader";
+import { Inventory } from "./model/Inventory";
 
 
 //Global Variables
 var stage: PIXI.Container = new PIXI.Container();
-var renderer = PIXI.autoDetectRenderer(640, 640);
+var renderer = PIXI.autoDetectRenderer(1000, 640);
 var socket = io();
 var world: World;
 var gameState: number = Constants.LOAD;
+var myInventory;
 //
 //
 document.body.appendChild(renderer.view);
@@ -110,6 +112,9 @@ socket.on("serverAssignId", function(message: Message) {
     console.log(worldFromServer);
     world = loadWorldFromServer(worldFromServer, clientId);
     loadPlayersFromServer(worldFromServer.players);
+    //Add inventory to stage
+    myInventory = new Inventory();
+    stage.addChild(myInventory.container);
     //Start the game loop
     gameLoop();
     gameState = Constants.PLAY;
