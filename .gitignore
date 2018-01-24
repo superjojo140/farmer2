@@ -8,7 +8,3 @@ out
 #Javascript files - they are all created by typescript
 *.js
 !webpack.config.js
-
-#Spritesheets
-dist/spritesheet.json
-dist/spritesheet.png
