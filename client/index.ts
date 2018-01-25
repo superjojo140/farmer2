@@ -21,7 +21,7 @@ var renderer = PIXI.autoDetectRenderer(1000, 640);
 var socket = io();
 var world: World;
 var gameState: number = Constants.LOAD;
-var myInventory;
+var myInventory: Inventory;
 //
 //
 document.body.appendChild(renderer.view);
@@ -59,6 +59,7 @@ $(document).keydown(function(event) {
     if (gameState == Constants.PLAY) {
         var message: Message = new Message("movement", "player", world.clientId, event.key);
         sendToServer(message);
+        myInventory.insertItemset({ "itemName": "paprika", "count": 1 }); //TODO Remove!!!
     }
 });
 

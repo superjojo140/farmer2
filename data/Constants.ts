@@ -30,4 +30,15 @@ export class Constants {
     static PLANTS: { [index: string]: SPlant } = {
         "paprika": { "name": "paprika", "sizeToHarvest": 120, "harvest": [{ "itemName": "paprika", "count": 2 }] }
     }
+
+    //inventory
+    static INVENTORY: { [index: string]: any } = {
+        "marginHorizontal": 10,
+        "marginVertical": 10,
+        "spriteHeigth": 64,
+        "spriteWidth": 64,
+        "badgeRadius": 10,
+        "textStyle": { fill: "black", fontSize: "16px" },
+        "textMargin": 5
+    }
 };
