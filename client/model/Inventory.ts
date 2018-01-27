@@ -15,6 +15,8 @@ export class Inventory {
     itemSprites: { [index: number]: PIXI.Sprite } = {};
     badges: { [index: number]: PIXI.Graphics } = {};
     numbers: { [index: number]: PIXI.Text } = {};
+    activeRectangle: PIXI.Graphics;
+    activeSlot: number = 0;
     constructor() {
         this.container = new PIXI.Container();
         this.container.width = 750;
@@ -46,6 +48,12 @@ export class Inventory {
             count.visible = false;
             this.container.addChild(count);
             this.numbers[i] = count;
+            //Active rectangle
+            this.activeRectangle = new PIXI.Graphics();
+            this.activeRectangle.lineStyle(4, 0xFF3300, 1);
+            this.activeRectangle.drawRect(0, 0, Constants.INVENTORY.spriteWidth + 2 * Constants.INVENTORY.activeRectangleMargin, Constants.INVENTORY.spriteHeigth + 2 * Constants.INVENTORY.activeRectangleMargin);
+            this.container.addChild(this.activeRectangle);
+            this.setActiveSlot(0);
         }
     }
 
@@ -56,18 +64,25 @@ export class Inventory {
      *@return {Number} The index of the inventoryslot the itemset was inserted in
      */
     insertItemset(itemset: Itemset): number {
-        //TODO Check if the item is already in the inventory => add count
-        //find next free inventoryslot
-        var index = -1;
+        //Check if the item is already in the inventory => add count
         for (var i = 0; i < 10; i++) {
-            if (this.content[i] == undefined) {
-                index = i;
-                this.content[index] = itemset;
+            if (this.content[i] != undefined && this.content[i].itemName == itemset.itemName) {
+                this.content[i].count += itemset.count;
                 this.updateContainer();
-                break;
+                return i;
             }
         }
-        return index;
+        //If the item is not yet in the inventory find next free inventoryslot
+        for (var i = 0; i < 10; i++) {
+            if (this.content[i] == undefined) {
+                this.content[i] = itemset;
+                this.updateContainer();
+                return i;
+            }
+
+        }
+        //If the item can't be inserted return -1
+        return -1;
     }
 
     /**
@@ -92,6 +107,31 @@ export class Inventory {
             }
         }
 
+    }
+
+    setActiveSlot(slot: number | string): void {
+        if (typeof slot == "string") {
+            if (slot == "next") {
+                this.setActiveSlot((this.activeSlot + 1) % 10);
+            }
+            else if (slot == "previous") {
+                this.setActiveSlot((this.activeSlot - 1) % 10);
+            }
+            else {
+                throw new Error("Invalid string parameter for Inventory.setActiveSlot() - please use next or previous or number");
+            }
+        }
+        else {
+            if (slot >= 0 && slot < 10) {
+                this.activeSlot = slot;
+                //Anzeigen
+                this.activeRectangle.x = (slot + 1) * Constants.INVENTORY.marginHorizontal + slot * Constants.INVENTORY.spriteWidth - Constants.INVENTORY.activeRectangleMargin;
+                this.activeRectangle.y = Constants.INVENTORY.marginVertical - Constants.INVENTORY.activeRectangleMargin;
+            }
+            else {
+                throw new Error("Invalid number parameter for Inventory.setActiveSlot() - please use number between 0 and 9 or string");
+            }
+        }
     }
 
 }
