@@ -17,7 +17,8 @@ import { TextureLoader } from "./TextureLoader";
  */
 export class Player {
     world: World;
-    sprite: PIXI.Sprite;
+    animations: PIXI.extras.AnimatedSprite[] = [];
+    sprite: PIXI.extras.AnimatedSprite;
     x: number;
     y: number;
     id: string;
@@ -25,7 +26,20 @@ export class Player {
     constructor(id: string, x: number, y: number, world: World) {
         this.id = id;
         this.world = world;
-        this.sprite = TextureLoader.getSprite("boy_down");
+
+        //Init animations
+        for (var direction: number = Constants.UP; direction <= Constants.LEFT; direction++) {
+            var textureArray: PIXI.Texture[] = [];
+            for (var i: number = 0; i < 4; i++) {
+                textureArray.push(TextureLoader.getTexture("boy" + (4 * direction + i)));
+            }
+            var tempAnimation: PIXI.extras.AnimatedSprite = new PIXI.extras.AnimatedSprite(textureArray);
+            tempAnimation.animationSpeed = 0.1;
+            this.animations[direction] = tempAnimation
+        }
+        this.sprite = this.animations[Constants.DOWN];
+
+        //set Position - have to be done AFTER generrating the spritesheet
         this.setPosition(x, y);
     }
 
@@ -35,20 +49,34 @@ export class Player {
     move(): void {
         var tileWidth: number = this.world.map.tileWidth;
         var tileHeight: number = this.world.map.tileHeight;
-        //Calculation PLAYER_SPEED to avoid flackering, if the could never reach exactly its Position because of the PLAYER_SPEED
+        //Calculate PLAYER_SPEED to avoid flackering, if the could never reach exactly its Position because of the PLAYER_SPEED
+        //Horizonal
         if (this.x * tileWidth >= this.sprite.x + Constants.PLAYER_SPEED) {
-            this.sprite.x += Constants.PLAYER_SPEED;
+            /*  if (this.sprite != this.animations[Constants.RIGHT]) {
+                  this.sprite.stop();
+                  //TODO Remove or hide currentSprite in worlds playerContainer
+                  this.sprite = this.animations[Constants.RIGHT];
+                  this.sprite.play();
+              }*/
+            this.sprite.x += Constants.PLAYER_SPEED; //Right
         }
         else if (this.x * tileWidth <= this.sprite.x - Constants.PLAYER_SPEED) {
-            this.sprite.x -= Constants.PLAYER_SPEED;
+            this.sprite.x -= Constants.PLAYER_SPEED; //Left
+        }
+        else {
+            //Stop
+            this.sprite.stop();
         }
 
+        //Vertical
+
         if (this.y * tileHeight >= this.sprite.y + Constants.PLAYER_SPEED) {
-            this.sprite.y += Constants.PLAYER_SPEED;
+            this.sprite.y += Constants.PLAYER_SPEED; //Down
         }
         else if (this.y * tileHeight <= this.sprite.y - Constants.PLAYER_SPEED) {
-            this.sprite.y -= Constants.PLAYER_SPEED;
+            this.sprite.y -= Constants.PLAYER_SPEED; //Up
         }
+
     };
 
 
@@ -81,6 +109,7 @@ export class Player {
      *Destroy the Player
      */
     destroy(): void {
+        //TODO this is not nice, why not in World.ts???
         this.world.playerContainer.removeChild(this.sprite);
     };
 
