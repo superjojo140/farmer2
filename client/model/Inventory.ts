@@ -48,13 +48,13 @@ export class Inventory {
             count.visible = false;
             this.container.addChild(count);
             this.numbers[i] = count;
-            //Active rectangle
-            this.activeRectangle = new PIXI.Graphics();
-            this.activeRectangle.lineStyle(4, 0xFF3300, 1);
-            this.activeRectangle.drawRect(0, 0, Constants.INVENTORY.spriteWidth + 2 * Constants.INVENTORY.activeRectangleMargin, Constants.INVENTORY.spriteHeigth + 2 * Constants.INVENTORY.activeRectangleMargin);
-            this.container.addChild(this.activeRectangle);
-            this.setActiveSlot(0);
         }
+        //Active rectangle
+        this.activeRectangle = new PIXI.Graphics();
+        this.activeRectangle.lineStyle(4, 0xFF3300, 1);
+        this.activeRectangle.drawRect(0, 0, Constants.INVENTORY.spriteWidth + 2 * Constants.INVENTORY.activeRectangleMargin, Constants.INVENTORY.spriteHeigth + 2 * Constants.INVENTORY.activeRectangleMargin);
+        this.container.addChild(this.activeRectangle);
+        this.setActiveSlot(0);
     }
 
 
