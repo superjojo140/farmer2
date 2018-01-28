@@ -9,21 +9,27 @@ import { TextureLoader } from "./TextureLoader"
  * @constructor
  */
 export class Inventory {
+    isActive: boolean = false;
     content: Itemset[] = [];
     container: PIXI.Container;
-    rectangle: PIXI.Sprite;
+    backgroundSprite: PIXI.Sprite;
     itemSprites: { [index: number]: PIXI.Sprite } = {};
     badges: { [index: number]: PIXI.Graphics } = {};
     numbers: { [index: number]: PIXI.Text } = {};
-    activeRectangle: PIXI.Graphics;
+    activeSlotRectangle: PIXI.Graphics;
     activeSlot: number = 0;
     constructor() {
+        //Container
         this.container = new PIXI.Container();
         this.container.width = 750;
         this.container.height = 84;
         this.container.y = 560//640 - this.container.height;
-        this.rectangle = TextureLoader.getSprite("inventory");
-        this.container.addChild(this.rectangle);
+        //BackgroundSprite
+        this.backgroundSprite = TextureLoader.getSprite("inventory");
+        this.container.addChild(this.backgroundSprite);
+        this.setActiveState(false); //Disfocus Inventory
+
+        //Slots
         for (var i = 0; i < 10; i++) {
             //ItemSprites
             this.itemSprites[i] = TextureLoader.getSprite("noItem");
@@ -49,12 +55,27 @@ export class Inventory {
             this.container.addChild(count);
             this.numbers[i] = count;
         }
-        //Active rectangle
-        this.activeRectangle = new PIXI.Graphics();
-        this.activeRectangle.lineStyle(4, 0xFF3300, 1);
-        this.activeRectangle.drawRect(0, 0, Constants.getInventory("spriteWidth") + 2 * Constants.getInventory("activeRectangleMargin"), Constants.getInventory("spriteHeigth") + 2 * Constants.getInventory("activeRectangleMargin"));
-        this.container.addChild(this.activeRectangle);
+        //Active slot backgroundSprite
+        this.activeSlotRectangle = new PIXI.Graphics();
+        this.activeSlotRectangle.lineStyle(4, 0xFF3300, 1);
+        this.activeSlotRectangle.drawRect(0, 0, Constants.getInventory("spriteWidth") + 2 * Constants.getInventory("activeSlotRectangleMargin"), Constants.getInventory("spriteHeigth") + 2 * Constants.getInventory("activeSlotRectangleMargin"));
+        this.container.addChild(this.activeSlotRectangle);
         this.setActiveSlot(0);
+
+    }
+
+    /**
+     *Set Inventory's active state
+     *@param {boolean} active true for active
+     */
+    setActiveState(active: boolean): void {
+        this.isActive = active;
+        if (active) {
+            this.container.alpha = 1;
+        }
+        else {
+            this.container.alpha = 0.5;
+        }
     }
 
 
@@ -115,21 +136,21 @@ export class Inventory {
                 this.setActiveSlot((this.activeSlot + 1) % 10);
             }
             else if (slot == Constants.PREVIOUS) {
-                this.setActiveSlot((this.activeSlot - 1) % 10);
+                this.setActiveSlot((((this.activeSlot - 1) % 10) + 10) % 10); //This is necessary cause of javascripts definition of % operator for negative values
             }
             else {
-                throw new Error("Invalid string parameter for Inventory.setActiveSlot() - please use next or previous or number");
+                throw new Error("Invalid string parameter for Inventory.setActiveSlot(): " + slot + " - please use next or previous or number");
             }
         }
         else {
             if (slot >= 0 && slot < 10) {
                 this.activeSlot = slot;
                 //Anzeigen
-                this.activeRectangle.x = (slot + 1) * Constants.getInventory("marginHorizontal") + slot * Constants.getInventory("spriteWidth") - Constants.getInventory("activeRectangleMargin");
-                this.activeRectangle.y = Constants.getInventory("marginVertical") - Constants.getInventory("activeRectangleMargin");
+                this.activeSlotRectangle.x = (slot + 1) * Constants.getInventory("marginHorizontal") + slot * Constants.getInventory("spriteWidth") - Constants.getInventory("activeSlotRectangleMargin");
+                this.activeSlotRectangle.y = Constants.getInventory("marginVertical") - Constants.getInventory("activeSlotRectangleMargin");
             }
             else {
-                throw new Error("Invalid number parameter for Inventory.setActiveSlot() - please use number between 0 and 9 or string");
+                throw new Error("Invalid number parameter for Inventory.setActiveSlot(): " + slot + " - please use number between 0 and 9 or string");
             }
         }
     }

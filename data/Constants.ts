@@ -57,6 +57,6 @@ export class Constants {
         "badgeRadius": 10,
         "textStyle": { fill: "black", fontSize: "16px" },
         "textMargin": 5,
-        "activeRectangleMargin": 3
+        "activeSlotRectangleMargin": 3
     }
 };

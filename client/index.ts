@@ -53,14 +53,57 @@ function gameLoop(): void {
 }
 
 
-/*Key Events*/
+/*
+Key Events
+*/
 $(document).keydown(function(event) {
     // TODO fix that the key is only triggered once https://stackoverflow.com/questions/19666440/jquery-keyboard-event-handler-press-and-hold
     if (gameState == Constants.PLAY) {
-        var message: Message = new Message("movement", "player", world.clientId, event.key);
-        sendToServer(message);
+        if (myInventory.isActive == false) {
+            switch (event.key) {
+                //Movement
+                case "ArrowLeft":
+                case "ArrowUp":
+                case "ArrowRight":
+                case "ArrowDown":
+                    var message: Message = new Message("movement", "player", world.clientId, event.key);
+                    sendToServer(message);
+                    break;
+
+                //Menu
+                case "y": myInventory.setActiveState(true);
+                    break;
+
+
+                //Unknown Key
+                default:
+                    console.log("unknown key input from client");
+                    break;
+            }
+        }
+        else { //Inventory enabled
+            switch (event.key) {
+                //Movement
+                case "ArrowLeft": myInventory.setActiveSlot(Constants.PREVIOUS);
+                    break;
+                case "ArrowRight": myInventory.setActiveSlot(Constants.NEXT);
+                    break;
+
+                //Menu
+                case "y": myInventory.setActiveState(false);
+                    break;
+                case "x": //TODO implment select functionality
+                    break;
+
+                //Unknown Key
+                default:
+                    console.log("unknown key input from client");
+                    break;
+            }
+        }
+
+
         myInventory.insertItemset({ "itemName": "paprika", "count": 1 }); //TODO Remove!!!
-        myInventory.setActiveSlot(Constants.NEXT);
     }
 });
 
