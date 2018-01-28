@@ -38,7 +38,7 @@ export class Map {
         for (var i: number = 0; i < this.height; i++) {
             for (var j: number = 0; j < this.width; j++) {
                 var myTile: MapTile = this.tiles[i][j];
-                var mySprite: PIXI.Sprite = TextureLoader.getSprite("field1");
+                var mySprite: PIXI.Sprite = TextureLoader.getSprite(myTile.type);
                 mySprite.x = myTile.x * this.tileWidth;
                 mySprite.y = myTile.y * this.tileHeight;
                 con.addChild(mySprite);

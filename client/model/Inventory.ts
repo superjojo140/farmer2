@@ -27,24 +27,24 @@ export class Inventory {
         for (var i = 0; i < 10; i++) {
             //ItemSprites
             this.itemSprites[i] = TextureLoader.getSprite("noItem");
-            this.itemSprites[i].x = Constants.INVENTORY.marginHorizontal + i * (Constants.INVENTORY.marginHorizontal + Constants.INVENTORY.spriteWidth);
-            this.itemSprites[i].y = Constants.INVENTORY.marginVertical;
+            this.itemSprites[i].x = Constants.getInventory("marginHorizontal") + i * (Constants.getInventory("marginHorizontal") + Constants.getInventory("spriteWidth"));
+            this.itemSprites[i].y = Constants.getInventory("marginVertical");
             this.itemSprites[i].visible = false;
             this.container.addChild(this.itemSprites[i]);
             //Badges
             var circle = new PIXI.Graphics();
             circle.beginFill(0xf4eb42);
-            circle.drawCircle(0, 0, Constants.INVENTORY.badgeRadius);
+            circle.drawCircle(0, 0, Constants.getInventory("badgeRadius"));
             circle.endFill();
-            circle.x = Constants.INVENTORY.marginHorizontal + Constants.INVENTORY.spriteWidth - Constants.INVENTORY.badgeRadius + i * (Constants.INVENTORY.marginHorizontal + Constants.INVENTORY.spriteWidth);
-            circle.y = Constants.INVENTORY.marginVertical + Constants.INVENTORY.spriteHeigth - Constants.INVENTORY.badgeRadius;
+            circle.x = Constants.getInventory("marginHorizontal") + Constants.getInventory("spriteWidth") - Constants.getInventory("badgeRadius") + i * (Constants.getInventory("marginHorizontal") + Constants.getInventory("spriteWidth"));
+            circle.y = Constants.getInventory("marginVertical") + Constants.getInventory("spriteHeigth") - Constants.getInventory("badgeRadius");
             circle.visible = false;
             this.container.addChild(circle);
             this.badges[i] = circle;
             //Numbers
-            var count = new PIXI.Text(String(0), Constants.INVENTORY.textStyle);
-            count.x = circle.x - Constants.INVENTORY.badgeRadius + Constants.INVENTORY.textMargin;
-            count.y = circle.y - Constants.INVENTORY.badgeRadius;
+            var count = new PIXI.Text(String(0), Constants.getInventory("textStyle"));
+            count.x = circle.x - Constants.getInventory("badgeRadius") + Constants.getInventory("textMargin");
+            count.y = circle.y - Constants.getInventory("badgeRadius");
             count.visible = false;
             this.container.addChild(count);
             this.numbers[i] = count;
@@ -52,7 +52,7 @@ export class Inventory {
         //Active rectangle
         this.activeRectangle = new PIXI.Graphics();
         this.activeRectangle.lineStyle(4, 0xFF3300, 1);
-        this.activeRectangle.drawRect(0, 0, Constants.INVENTORY.spriteWidth + 2 * Constants.INVENTORY.activeRectangleMargin, Constants.INVENTORY.spriteHeigth + 2 * Constants.INVENTORY.activeRectangleMargin);
+        this.activeRectangle.drawRect(0, 0, Constants.getInventory("spriteWidth") + 2 * Constants.getInventory("activeRectangleMargin"), Constants.getInventory("spriteHeigth") + 2 * Constants.getInventory("activeRectangleMargin"));
         this.container.addChild(this.activeRectangle);
         this.setActiveSlot(0);
     }
@@ -111,10 +111,10 @@ export class Inventory {
 
     setActiveSlot(slot: number | string): void {
         if (typeof slot == "string") {
-            if (slot == "next") {
+            if (slot == Constants.NEXT) {
                 this.setActiveSlot((this.activeSlot + 1) % 10);
             }
-            else if (slot == "previous") {
+            else if (slot == Constants.PREVIOUS) {
                 this.setActiveSlot((this.activeSlot - 1) % 10);
             }
             else {
@@ -125,8 +125,8 @@ export class Inventory {
             if (slot >= 0 && slot < 10) {
                 this.activeSlot = slot;
                 //Anzeigen
-                this.activeRectangle.x = (slot + 1) * Constants.INVENTORY.marginHorizontal + slot * Constants.INVENTORY.spriteWidth - Constants.INVENTORY.activeRectangleMargin;
-                this.activeRectangle.y = Constants.INVENTORY.marginVertical - Constants.INVENTORY.activeRectangleMargin;
+                this.activeRectangle.x = (slot + 1) * Constants.getInventory("marginHorizontal") + slot * Constants.getInventory("spriteWidth") - Constants.getInventory("activeRectangleMargin");
+                this.activeRectangle.y = Constants.getInventory("marginVertical") - Constants.getInventory("activeRectangleMargin");
             }
             else {
                 throw new Error("Invalid number parameter for Inventory.setActiveSlot() - please use number between 0 and 9 or string");

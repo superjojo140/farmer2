@@ -60,7 +60,7 @@ $(document).keydown(function(event) {
         var message: Message = new Message("movement", "player", world.clientId, event.key);
         sendToServer(message);
         myInventory.insertItemset({ "itemName": "paprika", "count": 1 }); //TODO Remove!!!
-        myInventory.setActiveSlot("next");
+        myInventory.setActiveSlot(Constants.NEXT);
     }
 });
 

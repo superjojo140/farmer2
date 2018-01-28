@@ -13,8 +13,8 @@ export class SPlant extends SItem {
     harvest: Itemset[];
     constructor(name: string) {
         super(name);
-        this.sizeToHarvest = Constants.PLANTS[name].sizeToHarvest;
-        this.harvest = Constants.PLANTS[name].harvest;
+        this.sizeToHarvest = Constants.getPlant(name).sizeToHarvest;
+        this.harvest = Constants.getPlant(name).harvest;
     }
 
 }
