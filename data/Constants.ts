@@ -25,6 +25,7 @@ export class Constants {
     static RIGHT: number = 1;
     static DOWN: number = 2;
     static LEFT: number = 3;
+    static STOP: number = 4;
     static NEXT: string = "next";
     static PREVIOUS: string = "previous";
     //GameStates

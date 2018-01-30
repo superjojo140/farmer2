@@ -39,7 +39,7 @@ export class World {
     addPlayer(id: string, x: number, y: number): void {
         var player: Player = new Player(id, x, y, this);
         this.players[id] = player;
-        this.playerContainer.addChild(player.sprite);
+        this.playerContainer.addChild(player.spriteContainer);
     }
 
     /**
